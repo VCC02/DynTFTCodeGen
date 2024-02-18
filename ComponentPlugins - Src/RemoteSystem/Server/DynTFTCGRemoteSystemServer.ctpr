@@ -135,7 +135,8 @@
 -dItemsEnabling
 -dUserTFTCommands
 -dListIcons
--dItemsTextCrop"/>
+-dItemsTextCrop
+-dUsingDynTFT"/>
     </Other>
   </CompilerOptions>
   <Debugging>

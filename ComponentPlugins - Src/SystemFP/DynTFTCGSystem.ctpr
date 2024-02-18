@@ -77,6 +77,10 @@
         <Filename Value="..\System\DynTFTCGSystemExportedFunctions.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="..\..\..\MiscUtils\DynArrays.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

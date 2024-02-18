@@ -1,5 +1,5 @@
 {   DynTFT  - graphic components for microcontrollers
-    Copyright (C) 2017, 2022 VCC
+    Copyright (C) 2017, 2024 VCC
     initial release date: 29 Dec 2017
     author: VCC
 
@@ -9,7 +9,7 @@
     License, v. 2.0. If a copy of the MPL was not distributed with this file,
     You can obtain one at https://mozilla.org/MPL/2.0/.
 
-    Copyright (c) 2022, VCC  https://github.com/VCC02
+    Copyright (c) 2024, VCC  https://github.com/VCC02
 
     Alternatively, the contents of this file may be used under the terms
     of the GNU Lesser General Public License Version 3, as described below:
@@ -70,6 +70,7 @@ type
   end;
                                       
   TDynTFTDesignPropertyArr = array of TDynTFTDesignProperty;
+  PDynTFTDesignPropertyArr = ^TDynTFTDesignPropertyArr;
 
 
   TComponentConstant = record
