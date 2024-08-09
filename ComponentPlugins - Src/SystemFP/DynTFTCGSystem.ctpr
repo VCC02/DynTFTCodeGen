@@ -91,7 +91,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\System;..;D:\DynTFT\"/>
+      <OtherUnitFiles Value="..\System;..;D:\DynTFT\;..\..\..\MiscUtils"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

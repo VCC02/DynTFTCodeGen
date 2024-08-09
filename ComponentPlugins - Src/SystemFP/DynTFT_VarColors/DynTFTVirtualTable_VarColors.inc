@@ -36,4 +36,4 @@
     OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 }
 
-//// Constants used from  ..\System\DynTFTColorTheme.inc
+CL_DynTFTVirtualTable_Background: TColor = CL_WHITE;

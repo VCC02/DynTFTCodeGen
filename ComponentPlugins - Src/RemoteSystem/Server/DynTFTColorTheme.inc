@@ -36,6 +36,14 @@
     OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 }
 
+  //DynTFTCodeGen reads schema files to get the color count, defined for each component.
+  //Those numbers (from schema files) have to be less than or equal to the following ColorCount constants.
+  //It is also possible for a component to define its color constants, and the same time, that component to be missing from color themes.
+  //For example DynTFTPageControl defines 3 color constants, but it won't be part of any color theme.
+  //This means that the following const count does not have to match the value of LiveColorComponentCount constant from DynTFTColorThemeGenLiveColors.pas
+  //However, the following color counts have to match the number of defined colors in <ComponentName>_<ThemeName>Colors.inc files from color theme folders.
+  //The order, in which colors are defined in the following CL_All_<ComponentName>_Colors arrays, has to match the order in <ComponentName>_<ThemeName>Colors.inc files.
+  
   CL_All_DynTFTArrowButton_ColorsCount = 6;
   CL_All_DynTFTButton_ColorsCount = 6;
   CL_All_DynTFTCheckBox_ColorsCount = 11;
@@ -55,6 +63,8 @@
   CL_All_DynTFTTrackBar_ColorsCount = 8;
   CL_All_DynTFTVirtualKeyboard_ColorsCount = 4;
   CL_All_DynTFTMessageBox_ColorsCount = 6;
+  CL_All_DynTFTVirtualKeyboardX2_ColorsCount = 4;
+  CL_All_DynTFTVirtualTable_ColorsCount = 1;
 
 var        
   {$I DynTFT_VarColors\DynTFTButton_VarColors.inc}
@@ -76,6 +86,8 @@ var
   {$I DynTFT_VarColors\DynTFTProgressBar_VarColors.inc}
   {$I DynTFT_VarColors\DynTFTScreen_VarColors.inc}
   {$I DynTFT_VarColors\DynTFTMessageBox_VarColors.inc}
+  {$I DynTFT_VarColors\DynTFTVirtualKeyboardX2_VarColors.inc}
+  {$I DynTFT_VarColors\DynTFTVirtualTable_VarColors.inc}
 
   CL_All_DynTFTButton_Colors: array[0..CL_All_DynTFTButton_ColorsCount - 1] of ^TColor = (@CL_DynTFTButton_LightEdge, @CL_DynTFTButton_DarkEdge, @CL_DynTFTButton_FocusRectangle, @CL_DynTFTButton_Background, @CL_DynTFTButton_EnabledFont, @CL_DynTFTButton_DisabledFont);
   CL_All_DynTFTArrowButton_Colors: array[0..CL_All_DynTFTArrowButton_ColorsCount - 1] of ^TColor = (@CL_DynTFTArrowButton_LightEdge, @CL_DynTFTArrowButton_DarkEdge, @CL_DynTFTArrowButton_FocusRectangle, @CL_DynTFTArrowButton_Background, @CL_DynTFTArrowButton_EnabledArrow, @CL_DynTFTArrowButton_DisabledArrow);
@@ -96,6 +108,8 @@ var
   CL_All_DynTFTProgressBar_Colors: array[0..CL_All_DynTFTProgressBar_ColorsCount - 1] of ^TColor = (@CL_DynTFTProgressBar_Progress, @CL_DynTFTProgressBar_Background, @CL_DynTFTProgressBar_LightEdge, @CL_DynTFTProgressBar_DarkEdge);
   CL_All_DynTFTScreen_Colors: array[0..CL_All_DynTFTScreen_ColorsCount - 1] of ^TColor = (@CL_DynTFTScreen_Background);
   CL_All_DynTFTMessageBox_Colors: array[0..CL_All_DynTFTMessageBox_ColorsCount - 1] of ^TColor = (@CL_DynTFTMessageBox_LightEdge, @CL_DynTFTMessageBox_DarkEdge, @CL_DynTFTMessageBox_Background, @CL_DynTFTMessageBox_TitleBar, @CL_DynTFTMessageBox_MessageFont, @CL_DynTFTMessageBox_TitleFont);
+  CL_All_DynTFTVirtualKeyboardX2_Colors: array[0..CL_All_DynTFTVirtualKeyboardX2_ColorsCount - 1] of ^TColor = (@CL_DynTFTVirtualKeyboardX2_Border, @CL_DynTFTVirtualKeyboardX2_Background, @CL_DynTFTVirtualKeyboardX2_EnabledKeyDrawing, @CL_DynTFTVirtualKeyboardX2_DisabledKeyDrawing);
+  CL_All_DynTFTVirtualTable_Colors: array[0..CL_All_DynTFTVirtualTable_ColorsCount - 1] of ^TColor = (@CL_DynTFTVirtualTable_Background);
 
   CL_All_DynTFTButton_InitColors: array[0..CL_All_DynTFTButton_ColorsCount - 1] of TColor;
   CL_All_DynTFTArrowButton_InitColors: array[0..CL_All_DynTFTArrowButton_ColorsCount - 1] of TColor;
@@ -116,3 +130,5 @@ var
   CL_All_DynTFTProgressBar_InitColors: array[0..CL_All_DynTFTProgressBar_ColorsCount - 1] of TColor;
   CL_All_DynTFTScreen_InitColors: array[0..CL_All_DynTFTScreen_ColorsCount - 1] of TColor;
   CL_All_DynTFTMessageBox_InitColors: array[0..CL_All_DynTFTMessageBox_ColorsCount - 1] of TColor;
+  CL_All_DynTFTVirtualKeyboardX2_InitColors: array[0..CL_All_DynTFTVirtualKeyboardX2_ColorsCount - 1] of TColor;
+  CL_All_DynTFTVirtualTable_InitColors: array[0..CL_All_DynTFTVirtualTable_ColorsCount - 1] of TColor;

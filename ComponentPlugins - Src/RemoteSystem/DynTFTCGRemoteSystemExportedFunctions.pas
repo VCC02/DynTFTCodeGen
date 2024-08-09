@@ -95,7 +95,7 @@ uses
 
 const
   CPluginName = 'System Components';  //the same string is used in color themes which target a specific plugin
-  CComponentCount = 20;
+  CComponentCount = 21;
 
 
 procedure SendPlainStringToServer(s: string);
@@ -316,6 +316,7 @@ begin
     AStringList.Add('DynTFTProgressBar');
     AStringList.Add('DynTFTMessageBox');
     AStringList.Add('DynTFTVirtualTable');
+    AStringList.Add('DynTFTVirtualKeyboardX2');   //This list has to match CComponentCount.
 
     //the CComponentCount constant has to be updated when adding components
 
@@ -356,6 +357,7 @@ begin
     AStringList.Add('0'); //DynTFTProgressBar
     AStringList.Add('1'); //DynTFTMessageBox
     AStringList.Add('0'); //DynTFTVirtualTable
+    AStringList.Add('0'); //DynTFTVirtualKeyboardX2       //This list has to match CComponentCount.
 
     //the CComponentCount constant has to be updated when adding components
 
@@ -399,6 +401,8 @@ begin
     AStringList.Add('DynTFTTabButton');
     AStringList.Add('DynTFTTrackBar');
     AStringList.Add('DynTFTVirtualKeyboard');
+    AStringList.Add('DynTFTVirtualTable');
+    AStringList.Add('DynTFTVirtualKeyboardX2');    //This list has to match CComponentCount.
 
     ResultStr := AStringList.Text;      //CRLF separated component names
     Result := SetPointedContentFromString(ResultStr, AListOfComponents);
@@ -428,7 +432,7 @@ var
   AContentPointer: Pointer;
 begin
   if (ComponentIndex < 0) or (ComponentIndex > CComponentCount - 1) then
-    raise Exception.Create('Index out of bounds (' + IntToStr(ComponentIndex) + ') when getting icon.');
+    raise Exception.Create('Index out of bounds (' + IntToStr(ComponentIndex) + ') when getting icon...');
 
   if not Assigned(ASetSizeCallback) then
     raise Exception.Create('ASetSizeCallback is not assigned. It is required to set the stream size before getting the icon contents.');

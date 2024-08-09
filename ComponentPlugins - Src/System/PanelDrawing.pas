@@ -71,7 +71,7 @@ implementation
 uses
   SysUtils, Classes, Math,
   {$IFDEF FPC}
-    DynTFTCodeGenImgFormFP, LCLIntf, LCLType
+    DynTFTCodeGenImgFormFP, LCLIntf, LCLType,
   {$ELSE}
     DynTFTCodeGenImgForm, Windows,
   {$ENDIF}

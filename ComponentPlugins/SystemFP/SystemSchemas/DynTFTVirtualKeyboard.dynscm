@@ -53,10 +53,19 @@ Const_0_DataType=Integer
 Const_0_Value=11
 
 [ColorConstants]
-Count=1
-Const_0_Name=CL_DynTFTVirtualKeyboard_Background
+Count=4
+Const_0_Name=CL_DynTFTVirtualKeyboard_Border
 Const_0_DataType=TColor
-Const_0_Value=CL_LIGHTBLUE
+Const_1_Value=CL_GRAY
+Const_1_Name=CL_DynTFTVirtualKeyboard_Background
+Const_1_DataType=TColor
+Const_2_Value=CL_LIGHTBLUE
+Const_2_Name=CL_DynTFTVirtualKeyboard_EnabledKeyDrawing
+Const_2_DataType=TColor
+Const_2_Value=CL_BLACK
+Const_3_Name=CL_DynTFTVirtualKeyboard_DisabledKeyDrawing
+Const_3_DataType=TColor
+Const_3_Value=CL_MEDGRAY
 
 [OneTimeComponentInitCode]
 Count=0

@@ -864,7 +864,9 @@ procedure TfrmDynTFTCGRemoteSystemServerMain.CloseClient;
 begin
   try
     try
-      FIdTCPClient.Socket.CloseGracefully;
+      if FIdTCPClient.Socket <> nil then
+        FIdTCPClient.Socket.CloseGracefully;
+
       FIdTCPClient.Disconnect;
     except
       on E: Exception do

@@ -125,7 +125,7 @@
 			<Directories Name="PackageDCPOutputDir"></Directories>
 			<Directories Name="SearchPath"></Directories>
 			<Directories Name="Packages"></Directories>
-			<Directories Name="Conditionals">MaxMMAtProjectLevel;UserTFTCommands;UseExternalItems;UseExternalLimits;DynTFTFontSupport;ItemsVisibility;ItemsEnabling</Directories>
+			<Directories Name="Conditionals">MaxMMAtProjectLevel;UserTFTCommands;UseExternalItems;UseExternalLimits;DynTFTFontSupport;ItemsVisibility;ItemsEnabling;ListIcons;ItemsTextCrop;UsingDynTFT;ExtraType</Directories>
 			<Directories Name="DebugSourceDirs"></Directories>
 			<Directories Name="UsePackages">False</Directories>
 		</Directories>

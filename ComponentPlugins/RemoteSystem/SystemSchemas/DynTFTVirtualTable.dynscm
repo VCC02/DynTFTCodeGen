@@ -186,19 +186,10 @@ Const_2_Value=3
 
 [ColorConstants]
 ;Here in base schema, ColorConstants must be resolved to integer or to one another up to one level of assignment.
-Count=4
+Count=1
 Const_0_Name=CL_DynTFTItems_Background
 Const_0_DataType=TColor
 Const_0_Value=CL_WHITE
-Const_1_Name=CL_DynTFTItems_EnabledFont
-Const_1_DataType=TColor
-Const_1_Value=CL_BLACK
-Const_2_Name=CL_DynTFTPanel_Background
-Const_2_DataType=TColor
-Const_2_Value=CL_LIGHTBLUE
-Const_3_Name=CL_DynTFTPanel_EnabledFont
-Const_3_DataType=TColor
-Const_3_Value=CL_BLACK
 
 [OneTimeComponentInitCode_Interface]
 ;One time initialization code for components of this type, placed under the interface section. It may contain datatypes, vars, constants and headers. Indentation is available, using the "" character, instead of blank.

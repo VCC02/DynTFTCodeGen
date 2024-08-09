@@ -82,7 +82,13 @@ object frmDynTFTCGRemoteSystemServerMain: TfrmDynTFTCGRemoteSystemServerMain
     Enabled = False
     Interval = 100
     OnTimer = tmrStatsTimer
-    Left = 448
-    Top = 56
+    Left = 476
+    Top = 84
+  end
+  object tmrLogging: TTimer
+    Interval = 200
+    OnTimer = tmrLoggingTimer
+    Left = 480
+    Top = 152
   end
 end

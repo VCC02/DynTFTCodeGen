@@ -36,4 +36,7 @@
     OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 }
 
-//// Constants used from  ..\System\DynTFTColorTheme.inc
+CL_DynTFTVirtualKeyboardX2_Border: TColor = CL_GRAY;
+CL_DynTFTVirtualKeyboardX2_Background: TColor = CL_LIGHTBLUE;
+CL_DynTFTVirtualKeyboardX2_EnabledKeyDrawing: TColor = CL_BLACK;
+CL_DynTFTVirtualKeyboardX2_DisabledKeyDrawing: TColor = CL_MEDGRAY;
