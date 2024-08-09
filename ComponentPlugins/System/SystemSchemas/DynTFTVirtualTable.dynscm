@@ -1,9 +1,7 @@
-[DrawingBoardMetaSchema]
-;Name of the metaschema file (.drbsch) which describes this structure. The $SelfDir$ var/replacement can be used to point to the path of the schema (this file (.dynscm)). The name "DrawingBoardMetaSchema" will be looked by the editor, to update the path when loading/saving this file.
-FileName=$SelfDir$\..\..\DynTFTComponents.drbsch
+[DrawingBoardSchema]
+FileName=..\..\DynTFTComponents.drbsch
 
 [ComponentPropertiesSchema]
-;Main component properties.
 Count=17
 Prop_0_Name=Items^.Font_Color
 Prop_0_DataType=TColor
@@ -11,42 +9,36 @@ Prop_0_DefaultValue=CL_DynTFTItems_EnabledFont
 Prop_0_Description=Component font color
 Prop_0_AvailableOnCompilerDirectives=
 Prop_0_DesignTimeOnly=1
-Prop_0_ReadOnly=0
 Prop_1_Name=Items^.BackgroundColor
 Prop_1_DataType=TColor
 Prop_1_DefaultValue=CL_DynTFTItems_Background
 Prop_1_Description=Component color
 Prop_1_AvailableOnCompilerDirectives=
 Prop_1_DesignTimeOnly=1
-Prop_1_ReadOnly=0
 Prop_2_Name=Items^.ActiveFont
 Prop_2_DataType=PByte
 Prop_2_DefaultValue=@TFT_defaultFont
 Prop_2_Description=Component font
 Prop_2_AvailableOnCompilerDirectives=DynTFTFontSupport
 Prop_2_DesignTimeOnly=1
-Prop_2_ReadOnly=0
 Prop_3_Name=Items^.Strings
 Prop_3_DataType=Array of String[CMaxItemItemCount]
 Prop_3_DefaultValue=
 Prop_3_Description=These are the displayed items.
 Prop_3_AvailableOnCompilerDirectives=not UseExternalItems
 Prop_3_DesignTimeOnly=1
-Prop_3_ReadOnly=0
 Prop_4_Name=Items^.ItemHeight
 Prop_4_DataType=Word
 Prop_4_DefaultValue=16
 Prop_4_Description=Height in pixels of an item.
 Prop_4_AvailableOnCompilerDirectives=
 Prop_4_DesignTimeOnly=1
-Prop_4_ReadOnly=0
 Prop_5_Name=Items^.ItemIndex
 Prop_5_DataType=Integer
 Prop_5_DefaultValue=-1
 Prop_5_Description=Index of selected item
 Prop_5_AvailableOnCompilerDirectives=
 Prop_5_DesignTimeOnly=1
-Prop_5_ReadOnly=0
 Prop_6_Name=Items^.Count
 Prop_6_DataType=Integer
 Prop_6_DefaultValue=0
@@ -67,35 +59,30 @@ Prop_8_DefaultValue=
 Prop_8_Description=These are the visible items. All default to visible (True) if not set. In Object Inspector, set visibility as boolean values, one value per line.
 Prop_8_AvailableOnCompilerDirectives=not UseExternalItems,ItemsVisibility
 Prop_8_DesignTimeOnly=1
-Prop_8_ReadOnly=0
 Prop_9_Name=Items^.ItemsEnabled
 Prop_9_DataType=Array of Boolean[CMaxItemItemCount]
 Prop_9_DefaultValue=
 Prop_9_Description=These are the enabled items. All default to enabled (True) if not set. In Object Inspector, set enabling as boolean values, one value per line.
 Prop_9_AvailableOnCompilerDirectives=not UseExternalItems,ItemsEnabling
 Prop_9_DesignTimeOnly=1
-Prop_9_ReadOnly=0
 Prop_10_Name=Items^.VisibleIcons
 Prop_10_DataType=Boolean
 Prop_10_DefaultValue=False
 Prop_10_Description=When True, the OnDrawIcon event is triggered to draw the item icon. When False, only the item text is displayed.
 Prop_10_AvailableOnCompilerDirectives=ListIcons
 Prop_10_DesignTimeOnly=1
-Prop_10_ReadOnly=0
 Prop_11_Name=HeaderCaptions
 Prop_11_DataType=Array of String[CMaxItemItemCount]
 Prop_11_DefaultValue=
 Prop_11_Description=These are the column titles. Use this property to predefine the number of columns.
 Prop_11_AvailableOnCompilerDirectives=
 Prop_11_DesignTimeOnly=1
-Prop_11_ReadOnly=0
 Prop_12_Name=ColumnWidths
 Prop_12_DataType=Array of Integer[CMaxItemItemCount]
 Prop_12_DefaultValue=
 Prop_12_Description=These are the column widths. The number of items has to match that of HeaderCaptions property.
 Prop_12_AvailableOnCompilerDirectives=
 Prop_12_DesignTimeOnly=1
-Prop_12_ReadOnly=0
 Prop_13_Name=ColumnCount
 Prop_13_DataType=Integer
 Prop_13_DefaultValue=1
@@ -109,38 +96,27 @@ Prop_14_DefaultValue=@TFT_defaultFont
 Prop_14_Description=Header font
 Prop_14_AvailableOnCompilerDirectives=DynTFTFontSupport
 Prop_14_DesignTimeOnly=1
-Prop_14_ReadOnly=0
 Prop_15_Name=Header^.Color
 Prop_15_DataType=TColor
 Prop_15_DefaultValue=CL_DynTFTPanel_Background
 Prop_15_Description=Header color
 Prop_15_AvailableOnCompilerDirectives=
 Prop_15_DesignTimeOnly=1
-Prop_15_ReadOnly=0
 Prop_16_Name=Header^.Font_Color
 Prop_16_DataType=TColor
 Prop_16_DefaultValue=CL_DynTFTPanel_EnabledFont
 Prop_16_Description=Header font color
 Prop_16_AvailableOnCompilerDirectives=
 Prop_16_DesignTimeOnly=1
-Prop_16_ReadOnly=0
-
-[ReservedComponentPropertiesSchema]
-;Properties used for debugging. Should be copied to the ComponentPropertiesSchema category when needed. This list may also contain events, if they share the same structure.
-Count=0
 
 [ComponentPropertiesOverrides]
-;Property overrides for main component properties.
 Count=2
 Prop_0_Name=Width
 Prop_0_DefaultValue=100
-Prop_0_ReadOnly=0
 Prop_1_Name=Height
 Prop_1_DefaultValue=170
-Prop_1_ReadOnly=0
 
 [ComponentEventsPropertiesSchema]
-;Main component events.
 Count=3
 Prop_0_Name=OnGetItem
 Prop_0_DataType=POnGetItemEvent
@@ -148,7 +124,6 @@ Prop_0_DefaultValue=
 Prop_0_Description=This is called to display every item on every paint action.
 Prop_0_AvailableOnCompilerDirectives=UseExternalItems
 Prop_0_DesignTimeOnly=0
-Prop_0_ReadOnly=0
 Prop_0_DataTypeDefinition=procedure _<HandlerName>_(AItems: PPtrRec; Index, Column: LongInt; var ItemText: string);
 Prop_1_Name=OnGetItemVisibility
 Prop_1_DataType=POnGetItemVisibilityEvent
@@ -156,7 +131,6 @@ Prop_1_DefaultValue=
 Prop_1_Description=This is called to override item visibility.
 Prop_1_AvailableOnCompilerDirectives=UseExternalItems
 Prop_1_DesignTimeOnly=0
-Prop_1_ReadOnly=0
 Prop_1_DataTypeDefinition=procedure _<HandlerName>_(AItems: PPtrRec; Index: LongInt; var ItemText: string {$IFDEF ItemsVisibility}; IsVisible: PBoolean {$ENDIF} {$IFDEF ItemsEnabling}; IsEnabled: PBoolean {$ENDIF});
 Prop_2_Name=OnDrawIcon
 Prop_2_DataType=POnDrawIconEvent
@@ -164,15 +138,12 @@ Prop_2_DefaultValue=
 Prop_2_Description=This is called to draw an icon on every item, only if the VisibleIcons property is True. Usually, the icon coordinates are CIconIndent (as x) and ItemY (as Y).
 Prop_2_AvailableOnCompilerDirectives=ListIcons
 Prop_2_DesignTimeOnly=0
-Prop_2_ReadOnly=0
 Prop_2_DataTypeDefinition=procedure _<HandlerName>_(AItems: PPtrRec; Index, Column, ItemY: LongInt; var ItemText: string {$IFDEF ItemsEnabling}; IsEnabled: Boolean {$ENDIF});
 
 [ComponentEventsOverrides]
-;Property overrides for main component events.
 Count=0
 
 [Constants]
-;These values should resolve to Integer or String (or maybe arrays of these)
 Count=3
 Const_0_Name=CMaxItemsStringLength
 Const_0_DataType=Integer
@@ -185,23 +156,13 @@ Const_2_DataType=Integer
 Const_2_Value=3
 
 [ColorConstants]
-;Here in base schema, ColorConstants must be resolved to integer or to one another up to one level of assignment.
-Count=4
+Count=1
 Const_0_Name=CL_DynTFTItems_Background
 Const_0_DataType=TColor
 Const_0_Value=CL_WHITE
-Const_1_Name=CL_DynTFTItems_EnabledFont
-Const_1_DataType=TColor
-Const_1_Value=CL_BLACK
-Const_2_Name=CL_DynTFTPanel_Background
-Const_2_DataType=TColor
-Const_2_Value=CL_LIGHTBLUE
-Const_3_Name=CL_DynTFTPanel_EnabledFont
-Const_3_DataType=TColor
-Const_3_Value=CL_BLACK
+
 
 [OneTimeComponentInitCode_Interface]
-;One time initialization code for components of this type, placed under the interface section. It may contain datatypes, vars, constants and headers. Indentation is available, using the "" character, instead of blank.
 Count=8
 Line_0=//VirtualTable code
 Line_1=type
@@ -213,8 +174,7 @@ Line_6=procedure PDynTFTVirtualTable_CreateColumns(ADynTFTVirtualTable: PDynTFTV
 Line_7=procedure PDynTFTVirtualTable_SetRemainingProperties(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, AItemHeight, AItemIndex: Integer {$IFDEF DynTFTFontSupport}; AActiveFont: PByte{$ENDIF}; AVisibleIcons: Boolean);
 
 [OneTimeComponentInitCode_Implementation]
-;One time initialization code for components of this type, placed under the implementation section. Indentation is available, using the "" character, instead of blank.
-Count=59
+Count=58
 Line_0=procedure PDynTFTVirtualTable_CreateColumns(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, ItemsCount {$IFDEF ItemsVisibility}, TotalVisibleCount{$ENDIF}: Integer; {$IFDEF IsMCU}var Captions: TVirtualTableColumnCaptionArr{$ELSE} const Captions: array of TVirtualTableColumnCaption{$ENDIF} {$IFNDEF UseExternalItems}{$IFDEF ItemsVisibility}; {$IFDEF IsMCU}var AItemsVisible: TVirtualTableColumnByteArr{$ELSE} const AItemsVisible: array of Byte{$ENDIF}{$ENDIF} {$IFDEF ItemsEnabling}; {$IFDEF IsMCU}var AItemsEnabled: TVirtualTableColumnByteArr{$ELSE} const AItemsEnabled: array of Byte{$ENDIF}{$ENDIF}{$ENDIF} {$IFDEF DynTFTFontSupport}; AHeaderActiveFont: PByte{$ENDIF});
 Line_1=var
 Line_2=i {$IFNDEF UseExternalItems}, j{$ENDIF}: Integer;
@@ -255,28 +215,30 @@ Line_36={$ENDIF}
 Line_37=end;
 Line_38=end;
 Line_39=
-Line_40=
-Line_41=procedure PDynTFTVirtualTable_SetRemainingProperties(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, AItemHeight, AItemIndex: Integer {$IFDEF DynTFTFontSupport}; AActiveFont: PByte{$ENDIF}; AVisibleIcons: Boolean);
-Line_42=var
-Line_43=i: Integer;
-Line_44=TempListBox: PDynTFTListBox;
-Line_45=TempItems: PDynTFTItems;
-Line_46=begin
-Line_47=for i := 0 to ColumnCount - 1 do
-Line_48=begin
-Line_49=TempListBox := PDynTFTListBox(TPtrRec(ADynTFTVirtualTable^.Columns^.Content^[i]));
-Line_50=TempItems := TempListBox^.Items;
-Line_51=TempItems^.ItemHeight := AItemHeight;
-Line_52=TempItems^.ItemIndex := AItemIndex;
-Line_53=TempItems^.VisibleIcons := AVisibleIcons;
-Line_54={$IFDEF DynTFTFontSupport}
-Line_55=TempItems^.ActiveFont := AActiveFont;
-Line_56={$ENDIF}
-Line_57=end;
-Line_58=end;
+Line_40=procedure PDynTFTVirtualTable_SetRemainingProperties(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, AItemHeight, AItemIndex: Integer {$IFDEF DynTFTFontSupport}; AActiveFont: PByte{$ENDIF}; AVisibleIcons: Boolean);
+Line_41=var
+Line_42=i: Integer;
+Line_43=TempListBox: PDynTFTListBox;
+Line_44=TempItems: PDynTFTItems;
+Line_45=begin
+Line_46=for i := 0 to ColumnCount - 1 do
+Line_47=begin
+Line_48=TempListBox := PDynTFTListBox(TPtrRec(ADynTFTVirtualTable^.Columns^.Content^[i]));
+Line_49=TempItems := TempListBox^.Items;
+Line_50=TempItems^.ItemHeight := AItemHeight;
+Line_51=TempItems^.ItemIndex := AItemIndex;
+Line_52=TempItems^.VisibleIcons := AVisibleIcons;
+Line_53={$IFDEF DynTFTFontSupport}
+Line_54=TempItems^.ActiveFont := AActiveFont;
+Line_55={$ENDIF}
+Line_56=end;
+Line_57=end;
+
+[OneTimeComponentInitCode]
+Count=1
+Line_0=//this is the default VirtualTable init code
 
 [PerInstanceInitConstants]
-;Initialization constants for every instance of components of this type. Indentation is available, using the "" character, instead of blank. Replacements are available, by enclosing property names between "_<" and ">_". There are also some function replacements. Examples: "_<NoString_ObjectName>_", "_<Left>_", "_<Top>_", "_<Length(Items)>_", "_<CSV(Items)>_", "_<Items^.ActiveFont>__Font".
 Count=6
 Line_0=C_<NoString_ObjectName>__Captions: array[0.._<Length(HeaderCaptions)>_ - 1] of TVirtualTableColumnCaption = (_<CSV(HeaderCaptions)>_);
 Line_1=C_<NoString_ObjectName>__ColumnWidths: array[0.._<Length(HeaderCaptions)>_ - 1] of Integer = (_<CSV(ColumnWidths)>_);
@@ -286,19 +248,16 @@ Line_4=C_<NoString_ObjectName>__ItemsVisible: array[0.._<Length(Items^.Strings
 Line_5=C_<NoString_ObjectName>__ItemsEnabled: array[0.._<Length(Items^.Strings)>_ - 1] of Byte = (_<CSV(Items^.ItemsEnabled)>_);
 
 [PerInstanceInitCode]
-;Initialization code for every instance of components of this type. Indentation is available, using the "" character, instead of blank. Replacements are available, by enclosing property names between "_<" and ">_". There are also some function replacements. Examples: "_<NoString_ObjectName>_", "_<Left>_", "_<Top>_", "_<Length(Items)>_", "_<CSV(Items)>_", "_<Items^.ActiveFont>__Font".
 Count=2
 Line_0=PDynTFTVirtualTable_CreateColumns(_<NoString_LocalObjectName>_, _<ColumnCount>_, C_<NoString_ObjectName>__ItemsCount {$IFDEF ItemsVisibility}, C_<NoString_ObjectName>__TotalVisibleCount{$ENDIF}, C_<NoString_ObjectName>__Captions {$IFNDEF UseExternalItems}{$IFDEF ItemsVisibility}, C_<NoString_ObjectName>__ItemsVisible{$ENDIF} {$IFDEF ItemsEnabling}, C_<NoString_ObjectName>__ItemsEnabled{$ENDIF}{$ENDIF} {$IFDEF DynTFTFontSupport}, {$IFDEF IsDesktop} PByte(_<Header^.ActiveFont>__Font) {$ELSE} _<Header^.ActiveFont>_ {$ENDIF}{$ENDIF});
 Line_1=PDynTFTVirtualTable_SetRemainingProperties(_<NoString_LocalObjectName>_, _<ColumnCount>_, _<Items^.ItemHeight>_, _<Items^.ItemIndex>_ {$IFDEF DynTFTFontSupport}, {$IFDEF IsDesktop} PByte(_<Items^.ActiveFont>__Font) {$ELSE} _<Items^.ActiveFont>_ {$ENDIF}{$ENDIF}, _<Items^.VisibleIcons>_);
 
 [CreateComponentCode]
-;Creation code for every instance of components of this type. Indentation is available, using the "" character, instead of blank. Replacements are available, by enclosing property names between "_<" and ">_". There are also some function replacements. Examples: "_<NoString_ObjectName>_", "_<Left>_", "_<Top>_", "_<Length(Items)>_", "_<CSV(Items)>_", "_<Items^.ActiveFont>__Font".
 Count=2
 Line_0=_<ObjectName>_ := DynTFTVirtualTable_Create(_<ScreenIndex>_, _<Left>_, _<Top>_, _<Width>_, _<Height>_);
 Line_1=
 
 [ComponentDependencies]
-;List of components, which are required to be registered, because this component will require them.
 Count=5
 Comp_0_Name=DynTFTItems
 Comp_1_Name=DynTFTScrollBar
@@ -307,6 +266,5 @@ Comp_3_Name=DynTFTListBox
 Comp_4_Name=DynTFTPanel
 
 [ComponentRegistration]
-;Name of the event registration procedure, then name of the component type function.
 RegisterEvents=DynTFTRegisterVirtualTableEvents
 GetComponentType=DynTFTGetVirtualTableComponentType

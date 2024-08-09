@@ -69,8 +69,13 @@ implementation
 
 
 uses
-  SysUtils, Graphics, Classes, Math,
-  {$IFDEF FPC} DynTFTCodeGenImgFormFP, {$ELSE} DynTFTCodeGenImgForm, {$ENDIF}
+  SysUtils, Classes, Math,
+  {$IFDEF FPC}
+    DynTFTCodeGenImgFormFP, LCLIntf, LCLType
+  {$ELSE}
+    DynTFTCodeGenImgForm, Windows,
+  {$ENDIF}
+  Graphics,
   DynTFTSharedUtils, TFTCallbacks,
 
   MemManager, TFT, DynTFTUtils, DynTFTTypes, DynTFTBaseDrawing, DynTFTConsts,
@@ -78,7 +83,7 @@ uses
   DynTFTItems, DynTFTListBox, DynTFTLabel, DynTFTRadioButton, DynTFTRadioGroup,
   DynTFTTabButton, DynTFTPageControl, DynTFTEdit, DynTFTKeyButton,
   DynTFTVirtualKeyboard, DynTFTComboBox, DynTFTTrackBar, DynTFTProgressBar,
-  DynTFTMessageBox, DynTFTVirtualTable;
+  DynTFTMessageBox, DynTFTVirtualTable, DynTFTVirtualKeyboardX2, Controls;
 
 
 var
@@ -531,6 +536,13 @@ begin
   finally
     LocalHeaderItems.Free;
   end;
+end;
+
+
+procedure PrepareVirtualKeyboardX2(var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; ADynTFTVirtualKeyboard: PDynTFTVirtualKeyboardX2);
+begin
+  ADynTFTVirtualKeyboard^.Color := GetColorConstByNameFromAllColorConsts(ColorConstants, GetPropertyValueInPropertiesOrEventsByName(PropertiesOrEvents, 'Color'), clRed);
+  ADynTFTVirtualKeyboard^.BaseProps.Enabled := StrToIntDef(GetPropertyValueInPropertiesOrEventsByName(PropertiesOrEvents, 'Enabled'), 1);
 end;
 
 
@@ -1060,6 +1072,63 @@ begin
 end;
 
 
+procedure TDrawDynTFTComponentProc_VirtualKeyboardX2(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
+var
+  ADynTFTVirtualKeyboard: PDynTFTVirtualKeyboardX2;
+  MemStream: TMemoryStream;
+  X2Bmp: TBitmap;
+  StretchRect: TRect;
+begin
+  New(ADynTFTVirtualKeyboard);
+  try
+    New(ADynTFTVirtualKeyboard^.OnCharKey);
+    New(ADynTFTVirtualKeyboard^.OnSpecialKey);
+    try
+      ADynTFTVirtualKeyboard^.OnCharKey^ := nil;
+      ADynTFTVirtualKeyboard^.OnSpecialKey^ := nil;
+
+      UpdateBaseProperties(APanel, PropertiesOrEvents, ADynTFTVirtualKeyboard^.BaseProps);
+      PrepareVirtualKeyboardX2(PropertiesOrEvents, SchemaConstants, ColorConstants, ADynTFTVirtualKeyboard);
+
+      if (APanel.Tag = 0) and (ADynTFTVirtualKeyboard^.BaseProps.Width > 310 shl 1) and (ADynTFTVirtualKeyboard^.BaseProps.Height > 180 shl 1) then
+      begin
+        APanel.Tag := 1;
+
+        MemStream := TMemoryStream.Create;
+        X2Bmp := TBitmap.Create;
+        try
+          X2Bmp.PixelFormat := pf24bit;
+          X2Bmp.Width := frmImg.imgVirtualKeyboard.Width shl 1;
+          X2Bmp.Height := frmImg.imgVirtualKeyboard.Height shl 1;
+          StretchRect.Left := 0;
+          StretchRect.Top := 0;
+          StretchRect.Right := X2Bmp.Width;
+          StretchRect.Bottom := X2Bmp.Height;
+
+          X2Bmp.Canvas.Pen.Color := clRed;
+          X2Bmp.Canvas.Brush.Color := clWhite;
+          X2Bmp.Canvas.Rectangle(StretchRect);
+          X2Bmp.Canvas.MoveTo(0, 0);
+          X2Bmp.Canvas.LineTo(X2Bmp.Width, X2Bmp.Height);
+
+          X2Bmp.Canvas.StretchDraw(StretchRect, frmImg.imgVirtualKeyboard.Picture.Bitmap);
+          X2Bmp.SaveToStream(MemStream);
+          FDynTFT_DrawBitmap_Callback(MemStream.Memory, MemStream.Size, 0, 0);
+        finally
+          MemStream.Free;
+          X2Bmp.Free;
+        end;
+      end;                                                                             
+    finally
+      Dispose(ADynTFTVirtualKeyboard^.OnCharKey);
+      Dispose(ADynTFTVirtualKeyboard^.OnSpecialKey);
+    end;
+  finally
+    Dispose(ADynTFTVirtualKeyboard);
+  end;
+end;
+
+
 procedure TDrawDynTFTComponentProc_ComboBox(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 var
   ADynTFTComboBox: PDynTFTComboBox;
@@ -1334,6 +1403,7 @@ begin
   DynTFTRegisterProgressBarEvents;         // {$IFDEF IsDesktop}DynTFT_DebugConsole('ProgressBar type: ' + IntToStr(DynTFTGetProgressBarComponentType));{$ENDIF}
   DynTFTRegisterMessageBoxEvents;          // {$IFDEF IsDesktop}DynTFT_DebugConsole('MessageBox type: ' + IntToStr(DynTFTGetMessageBoxComponentType));{$ENDIF}
   DynTFTRegisterVirtualTableEvents;        // {$IFDEF IsDesktop}DynTFT_DebugConsole('VirtualTable type: ' + IntToStr(DynTFTGetVirtualTableComponentType));{$ENDIF}
+  DynTFTRegisterVirtualKeyboardX2Events;   // {$IFDEF IsDesktop}DynTFT_DebugConsole('VirtualKeyboardX2 type: ' + IntToStr(DynTFTGetVirtualKeyboardX2ComponentType));{$ENDIF}
 
   RegisterCompDrawingProcedure(FCompDrawingProcedures, TDrawDynTFTComponentProc_Button);
   RegisterCompDrawingProcedure(FCompDrawingProcedures, TDrawDynTFTComponentProc_ArrowButton);
@@ -1355,6 +1425,7 @@ begin
   RegisterCompDrawingProcedure(FCompDrawingProcedures, TDrawDynTFTComponentProc_ProgressBar);
   RegisterCompDrawingProcedure(FCompDrawingProcedures, TDrawDynTFTComponentProc_MessageBox);
   RegisterCompDrawingProcedure(FCompDrawingProcedures, TDrawDynTFTComponentProc_VirtualTable);
+  RegisterCompDrawingProcedure(FCompDrawingProcedures, TDrawDynTFTComponentProc_VirtualKeyboardX2);
 end;
 
 

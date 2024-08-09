@@ -9,7 +9,7 @@
     License, v. 2.0. If a copy of the MPL was not distributed with this file,
     You can obtain one at https://mozilla.org/MPL/2.0/.
 
-    Copyright (c) 2022, VCC  https://github.com/VCC02
+    Copyright (c) 2023, VCC  https://github.com/VCC02
 
     Alternatively, the contents of this file may be used under the terms
     of the GNU Lesser General Public License Version 3, as described below:
@@ -78,7 +78,10 @@ uses
   TFT in 'D:\DynTFT\TFT.pas',
   DynTFTColorThemeGenLiveColors in 'DynTFTColorThemeGenLiveColors.pas',
   DynTFTCGSystemExportedFunctions in 'DynTFTCGSystemExportedFunctions.pas',
-  TFTCallbacks in '..\TFTCallbacks.pas';
+  TFTCallbacks in '..\TFTCallbacks.pas',
+  DynTFTVirtualTable in 'D:\DynTFT\DynTFTVirtualTable.pas',
+  DynTFTVirtualKeyboardX2 in 'D:\DynTFT\DynTFTVirtualKeyboardX2.pas',
+  DynArrays in '..\..\..\MiscUtils\DynArrays.pas';
 
 {$R *.res}
 

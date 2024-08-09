@@ -126,6 +126,7 @@ begin
     AStringList.Add('DynTFTProgressBar');
     AStringList.Add('DynTFTMessageBox');
     AStringList.Add('DynTFTVirtualTable');
+    AStringList.Add('DynTFTVirtualKeyboardX2');
 
     ResultStr := AStringList.Text;      //CRLF separated component names
     Result := SetPointedContentFromString(ResultStr, AListOfComponents);
@@ -164,6 +165,7 @@ begin
     AStringList.Add('0'); //DynTFTProgressBar
     AStringList.Add('1'); //DynTFTMessageBox
     AStringList.Add('0'); //DynTFTVirtualTable
+    AStringList.Add('0'); //DynTFTVirtualKeyboardX2
 
     ResultStr := AStringList.Text;        //CRLF separated component usage
     Result := SetPointedContentFromString(ResultStr, AListOfComponents);
@@ -205,6 +207,8 @@ begin
     AStringList.Add('DynTFTTabButton');
     AStringList.Add('DynTFTTrackBar');
     AStringList.Add('DynTFTVirtualKeyboard');
+    AStringList.Add('DynTFTVirtualTable');
+    AStringList.Add('DynTFTVirtualKeyboardX2');
 
     ResultStr := AStringList.Text;      //CRLF separated component names
     Result := SetPointedContentFromString(ResultStr, AListOfComponents);

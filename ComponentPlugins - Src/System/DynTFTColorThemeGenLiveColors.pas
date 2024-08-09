@@ -51,7 +51,7 @@ type
   PBackupColorArray = ^TBackupColorArray;
 
 const
-  LiveColorComponentCount = 18; //this has to match the component count (number of .inc files) in DynTFTColorTheme.inc from a color theme
+  LiveColorComponentCount = 20; //this has to match the component count (number of .inc files) in DynTFTColorTheme.inc from a color theme
                                 //not all components, exported by a plugin, will have "themed" color constants 
 var
   //the order of the following array elements does not have to match the order of inc files in DynTFTColorTheme.inc from a color theme anymore, because the GetListOfLiveColorComponents function exports the list to DynTFTCodeGen.
@@ -74,7 +74,9 @@ var
     @CL_All_DynTFTScrollBar_Colors,
     @CL_All_DynTFTTabButton_Colors,
     @CL_All_DynTFTTrackBar_Colors,
-    @CL_All_DynTFTVirtualKeyboard_Colors
+    @CL_All_DynTFTVirtualKeyboard_Colors,
+    @CL_All_DynTFTVirtualTable_Colors,
+    @CL_All_DynTFTVirtualKeyboardX2_Colors
   );
 
   BackupLiveColors: array[0..LiveColorComponentCount - 1] of PBackupColorArray = (
@@ -96,7 +98,9 @@ var
     @CL_All_DynTFTScrollBar_InitColors,
     @CL_All_DynTFTTabButton_InitColors,
     @CL_All_DynTFTTrackBar_InitColors,
-    @CL_All_DynTFTVirtualKeyboard_InitColors
+    @CL_All_DynTFTVirtualKeyboard_InitColors,
+    @CL_All_DynTFTVirtualTable_InitColors,
+    @CL_All_DynTFTVirtualKeyboardX2_InitColors
   );
 
   LiveColorsConstCount: array[0..LiveColorComponentCount - 1] of Integer = (
@@ -118,9 +122,11 @@ var
     CL_All_DynTFTScrollBar_ColorsCount,
     CL_All_DynTFTTabButton_ColorsCount,
     CL_All_DynTFTTrackBar_ColorsCount,
-    CL_All_DynTFTVirtualKeyboard_ColorsCount
+    CL_All_DynTFTVirtualKeyboard_ColorsCount,
+    CL_All_DynTFTVirtualTable_ColorsCount,
+    CL_All_DynTFTVirtualKeyboardX2_ColorsCount
   );
-  
+
 implementation
 
 end.

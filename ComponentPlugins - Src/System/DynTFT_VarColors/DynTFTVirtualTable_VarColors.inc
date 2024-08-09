@@ -36,7 +36,4 @@
     OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 }
 
-CL_DynTFTEdit_Border: TColor = CL_GRAY;
-CL_DynTFTEdit_Background: TColor = CL_WHITE;
-CL_DynTFTEdit_EnabledFont: TColor = CL_BLACK;
-CL_DynTFTEdit_DisabledFont: TColor = CL_MEDGRAY;
+CL_DynTFTVirtualTable_Background: TColor = CL_WHITE;
