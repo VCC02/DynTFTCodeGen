@@ -51,6 +51,7 @@ type
     lbePluginServerPort: TLabeledEdit;
     btnOK: TButton;
     btnCancel: TButton;
+    chkLogDrawingRequests: TCheckBox;
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
   private
@@ -60,7 +61,7 @@ type
   end;
 
 
-function EditServerSettings(var ARSServerAddress: string; var ARSServerPort, APluginPort: Word): Boolean;
+function EditServerSettings(var ARSServerAddress: string; var ARSServerPort, APluginPort: Word; var ALogDrawingRequests: Boolean): Boolean;
 
 
 implementation
@@ -68,7 +69,7 @@ implementation
 {$R *.dfm}
 
 
-function EditServerSettings(var ARSServerAddress: string; var ARSServerPort, APluginPort: Word): Boolean;
+function EditServerSettings(var ARSServerAddress: string; var ARSServerPort, APluginPort: Word; var ALogDrawingRequests: Boolean): Boolean;
 var
   frmRSSettings: TfrmRSSettings;
 begin
@@ -78,6 +79,7 @@ begin
   frmRSSettings.lbeRSServerAddress.Text := ARSServerAddress;
   frmRSSettings.lbeRSServerPort.Text := IntToStr(ARSServerPort);
   frmRSSettings.lbePluginServerPort.Text := IntToStr(APluginPort);
+  frmRSSettings.chkLogDrawingRequests.Checked := ALogDrawingRequests;
 
   frmRSSettings.ShowModal;
 
@@ -87,6 +89,7 @@ begin
     ARSServerAddress := frmRSSettings.lbeRSServerAddress.Text;
     ARSServerPort := StrToIntDef(frmRSSettings.lbeRSServerPort.Text, 3580);
     APluginPort := StrToIntDef(frmRSSettings.lbePluginServerPort.Text, 3581);
+    ALogDrawingRequests := frmRSSettings.chkLogDrawingRequests.Checked;
   end;
 end;
 

@@ -55,6 +55,8 @@ type
   { TfrmDynTFTCGRemoteSystemServerMain }
 
   TfrmDynTFTCGRemoteSystemServerMain = class(TForm)
+    chkLogDrawingRequests: TCheckBox;
+    chkLogDrawingResponses: TCheckBox;
     IdTCPServer1: TIdTCPServer;
     memLog: TMemo;
     tmrLogging: TTimer;
@@ -64,6 +66,8 @@ type
     lblAllocatedMemory: TLabel;
     prbAllocatedMemory: TProgressBar;
     tmrStats: TTimer;
+    procedure chkLogDrawingRequestsClick(Sender: TObject);
+    procedure chkLogDrawingResponsesClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -75,6 +79,8 @@ type
     procedure tmrStatsTimer(Sender: TObject);
   private
     FLoggingFIFO: TPollingFIFO;
+    FLogDrawingRequests: Boolean;
+    FLogDrawingResponses: Boolean;
 
     procedure AddToLog(s: string);
     procedure AddToLogFromThread(s: string);
@@ -143,6 +149,8 @@ end;
 procedure TfrmDynTFTCGRemoteSystemServerMain.FormCreate(Sender: TObject);
 begin
   FPluginPort := 0;
+  FLogDrawingRequests := False;
+  FLogDrawingResponses := False;
   FLoggingFIFO := TPollingFIFO.Create;
 
   tmrStartup.Enabled := True;
@@ -166,6 +174,20 @@ begin
     end;
   except
   end;
+end;
+
+
+procedure TfrmDynTFTCGRemoteSystemServerMain.chkLogDrawingRequestsClick(
+  Sender: TObject);
+begin
+  FLogDrawingRequests := chkLogDrawingRequests.Checked;
+end;
+
+
+procedure TfrmDynTFTCGRemoteSystemServerMain.chkLogDrawingResponsesClick(
+  Sender: TObject);
+begin
+  FLogDrawingResponses := chkLogDrawingResponses.Checked;
 end;
 
 
@@ -462,7 +484,8 @@ var
   s: string;
   IndexInTemp: Integer;
 begin
-  //frmDynTFTCGRemoteSystemServerMain.AddToLogFromThread('DrawPDynTFTComponentOnPanel: ' + ACompName);
+  if frmDynTFTCGRemoteSystemServerMain.FLogDrawingRequests then
+    frmDynTFTCGRemoteSystemServerMain.AddToLogFromThread('DrawPDynTFTComponentOnPanel: ' + ACompName);
 
   try
     try
@@ -496,6 +519,9 @@ begin
             DrawingResponse := DrawingResponse + DrawingCommands[i] + CRecFieldArrayItemSeparator;
 
           ASocket.WriteLn(DrawingResponse);
+
+          if frmDynTFTCGRemoteSystemServerMain.FLogDrawingResponses then
+            frmDynTFTCGRemoteSystemServerMain.AddToLogFromThread('DrawingResponse: ' + DrawingResponse);
         finally
           SetLength(DrawingCommands, 0);
         end;

@@ -486,7 +486,6 @@ end;
 procedure Do_DrawBitmap_Callback(ASocket: TIdIOHandlerSocket; CmdParam: string);
 var
   AStringList: TStringList;
-  APointerToBmpStreamMem: Pointer;
   AContentSize: Int64;
   x, y: Integer;
   MemStream: TMemoryStream;
@@ -500,10 +499,8 @@ begin
     y := HexToInt(AStringList.Values['y']);
 
     MemStream.SetSize(AContentSize);
-    APointerToBmpStreamMem := MemStream.Memory;
     ASocket.ReadStream(MemStream, AContentSize);
-    MemStream.Position := 0;
-    FDynTFT_DrawBitmap_Callback(APointerToBmpStreamMem, AContentSize, x, y);
+    FDynTFT_DrawBitmap_Callback(MemStream.Memory, AContentSize, x, y);
   finally
     AStringList.Free;
     MemStream.Free;
@@ -672,6 +669,7 @@ const
 procedure TServerHandlers.IdTCPServerExecute(AContext: TIdContext);
 var
   Cmd, CmdParam: string;
+  Timestamp: string;
 begin
   try
     Cmd := AContext.Connection.Socket.ReadLn(#13#10, CDrawingCmdTimeout, CMaxLineLen);
@@ -688,10 +686,11 @@ begin
     begin
       //SyncThreadToUI; //not as effective as DynTFT_DebugConsole, which writes to a TMemo
       //DynTFT_DebugConsole('CCGRM_CallbackDraw...'); //required, to avoid "Out of system resources." error message.   - replaced by below call to frmImg.AddToLog
-      frmImg.AddToLog('CCGRM_CallbackDraw...');
+
+      Timestamp := DateTimeToStr(Now); //call this before ReadDrawingCommands
       //frmImg.AddToLog('CCGRM_CallbackDraw... CmdParam = ' + CmdParam);
       ReadDrawingCommands{FromThread}(AContext.Connection.Socket, CmdParam);    ///////////// if synchronizing using "FromThread", it seems the race condition is less likely to reproduce, but the CDPDynTFT_GetTextWidthAndHeight callback is not called when needed, because the UI is not available then. The UI becomes available after the call to the component's drawing procedure, which is too late.
-
+      frmImg.AddToLog('CCGRM_CallbackDraw at ' + Timestamp + '...');
       Exit;
     end;
 
@@ -773,6 +772,9 @@ end;
 
 procedure TDrawDynTFTComponentProc_Button(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing Button at ' + DateTimeToStr(Now) + '...');
+    
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_Button, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
@@ -780,120 +782,180 @@ end;
 
 procedure TDrawDynTFTComponentProc_ArrowButton(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing ArrowButton at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_ArrowButton, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_Panel(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing Panel at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_Panel, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_CheckBox(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing CheckBox at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_CheckBox, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_ScrollBar(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing ScrollBar at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_ScrollBar, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_Items(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing Items at ' + DateTimeToStr(Now) + '...');
+    
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_Items, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_ListBox(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing ListBox at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_ListBox, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_Label(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing Label at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_Label, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_RadioButton(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing RadioButton at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_RadioButton, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_RadioGroup(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing RadioGroup at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_RadioGroup, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_TabButton(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing TabButton at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_TabButton, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_PageControl(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing PageControl at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_PageControl, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_Edit(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing Edit at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_Edit, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_KeyButton(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing KeyButton at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_KeyButton, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_VirtualKeyboard(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing VirtualKeyboard at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_VirtualKeyboard, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_ComboBox(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing ComboBox at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_ComboBox, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_TrackBar(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing TrackBar at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_TrackBar, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_ProgressBar(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing ProgressBar at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_ProgressBar, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_MessageBox(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing MessageBox at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_MessageBox, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_VirtualTable(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing VirtualTable at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_VirtualTable, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 
 
 procedure TDrawDynTFTComponentProc_VirtualKeyboardX2(APanel: TUIPanelBase; var PropertiesOrEvents: TDynTFTDesignPropertyArr; var SchemaConstants: TComponentConstantArr; var ColorConstants: TColorConstArr; var AFontSettings: TFontSettingsArr);
 begin
+  if FLogDrawingRequests then
+    frmImg.AddToLog('Drawing VirtualKeyboardX2 at ' + DateTimeToStr(Now) + '...');
+
   DrawDynTFTComponentProc(APanel, CCGRM_DrawPDynTFTComponentOnPanel_VirtualKeyboard, PropertiesOrEvents, SchemaConstants, ColorConstants, AFontSettings);
 end;
 

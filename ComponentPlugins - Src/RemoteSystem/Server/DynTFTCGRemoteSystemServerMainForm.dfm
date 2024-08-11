@@ -48,6 +48,24 @@ object frmDynTFTCGRemoteSystemServerMain: TfrmDynTFTCGRemoteSystemServerMain
     Smooth = True
     TabOrder = 1
   end
+  object chkLogDrawingRequests: TCheckBox
+    Left = 280
+    Top = 253
+    Width = 131
+    Height = 19
+    Caption = 'Log drawing requests'
+    TabOrder = 2
+    OnClick = chkLogDrawingRequestsClick
+  end
+  object chkLogDrawingResponses: TCheckBox
+    Left = 280
+    Top = 272
+    Width = 139
+    Height = 19
+    Caption = 'Log drawing responses'
+    TabOrder = 3
+    OnClick = chkLogDrawingResponsesClick
+  end
   object IdTCPServer1: TIdTCPServer
     Bindings = <>
     DefaultPort = 3580

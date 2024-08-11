@@ -80,6 +80,7 @@ var
   FRemoteSystemServerAddress: string;
   FRemoteSystemServerPort: Word;
   FPluginServerPort: Word;
+  FLogDrawingRequests: Boolean;
 
   
 implementation
@@ -179,6 +180,7 @@ begin
       FRemoteSystemServerAddress := Ini.ReadString('Settings', 'RSServerAddress', CDefaultRSServerAddress);
       FRemoteSystemServerPort := Ini.ReadInteger('Settings', 'RSServerPort', CDefaultRSServerPort);
       FPluginServerPort := Ini.ReadInteger('Settings', 'PluginServerPort', CDefaultPluginServerPort);
+      FLogDrawingRequests := Ini.ReadBool('Settings', 'LogDrawingRequests', False);
     finally
       Ini.Free;
     end;
@@ -188,6 +190,7 @@ begin
       FRemoteSystemServerAddress := CDefaultRSServerAddress;
       FRemoteSystemServerPort := CDefaultRSServerPort;
       FPluginServerPort := CDefaultPluginServerPort;
+      FLogDrawingRequests := False;
       DynTFT_DebugConsole('Exception when loading plugin settings: ' + E.Message);
     end;
   end;
@@ -204,6 +207,7 @@ begin
       Ini.WriteString('Settings', 'RSServerAddress', FRemoteSystemServerAddress);
       Ini.WriteInteger('Settings', 'RSServerPort', FRemoteSystemServerPort);
       Ini.WriteInteger('Settings', 'PluginServerPort', FPluginServerPort);
+      Ini.WriteBool('Settings', 'LogDrawingRequests', FLogDrawingRequests);
 
       Ini.UpdateFile;
     finally
@@ -420,8 +424,8 @@ begin
   ATempBitmap.Canvas.Font.Color := clBlue;
   ATempBitmap.Canvas.Font.Name := 'Tahoma';
   ATempBitmap.Canvas.Font.Size := 8;
-  ATempBitmap.Canvas.TextOut(4, 0, 'No');
-  ATempBitmap.Canvas.TextOut(1, 11, 'Srv');
+  ATempBitmap.Canvas.TextOut(5, 0, 'No');
+  ATempBitmap.Canvas.TextOut(1, 13, 'Srv');
 end;
 
 

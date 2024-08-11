@@ -9,7 +9,7 @@ object frmDynTFTCGRemoteSystemServerMain: TfrmDynTFTCGRemoteSystemServerMain
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '7.5'
+  LCLVersion = '8.1'
   object memLog: TMemo
     Left = 8
     Height = 265
@@ -32,13 +32,31 @@ object frmDynTFTCGRemoteSystemServerMain: TfrmDynTFTCGRemoteSystemServerMain
   end
   object lblAllocatedMemory: TLabel
     Left = 8
-    Height = 15
-    Top = 296
-    Width = 101
+    Height = 19
+    Top = 294
+    Width = 119
     Anchors = [akLeft]
     Caption = 'Allocated Memory:'
     ParentShowHint = False
     ShowHint = True
+  end
+  object chkLogDrawingRequests: TCheckBox
+    Left = 280
+    Height = 21
+    Top = 296
+    Width = 160
+    Caption = 'Log drawing requests'
+    OnClick = chkLogDrawingRequestsClick
+    TabOrder = 2
+  end
+  object chkLogDrawingResponses: TCheckBox
+    Left = 280
+    Height = 21
+    Top = 320
+    Width = 169
+    Caption = 'Log drawing responses'
+    OnClick = chkLogDrawingResponsesClick
+    TabOrder = 3
   end
   object IdTCPServer1: TIdTCPServer
     Bindings = <>

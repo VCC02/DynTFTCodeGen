@@ -90,7 +90,7 @@ begin
   OldRemoteSystemServerAddress := FRemoteSystemServerAddress;
   OldRemoteSystemServerPort := FRemoteSystemServerPort;
 
-  if EditServerSettings(FRemoteSystemServerAddress, FRemoteSystemServerPort, FPluginServerPort) then
+  if EditServerSettings(FRemoteSystemServerAddress, FRemoteSystemServerPort, FPluginServerPort, FLogDrawingRequests) then
     if (FIdTCPServer.DefaultPort <> FPluginServerPort) or
        (OldRemoteSystemServerAddress <> FRemoteSystemServerAddress) or
        (OldRemoteSystemServerPort <> FRemoteSystemServerPort) then

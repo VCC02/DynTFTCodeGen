@@ -1038,6 +1038,7 @@ procedure TDrawDynTFTComponentProc_VirtualKeyboard(APanel: TUIPanelBase; var Pro
 var
   ADynTFTVirtualKeyboard: PDynTFTVirtualKeyboard;
   MemStream: TMemoryStream;
+  Bmp: TBitmap;
 begin
   New(ADynTFTVirtualKeyboard);
   try
@@ -1055,11 +1056,21 @@ begin
         APanel.Tag := 1;
 
         MemStream := TMemoryStream.Create;
+        Bmp := TBitmap.Create;
         try
-          frmImg.imgVirtualKeyboard.Picture.Bitmap.SaveToStream(MemStream);
+          Bmp.PixelFormat := pf24bit;
+          Bmp.Width := ADynTFTVirtualKeyboard^.BaseProps.Width;
+          Bmp.Height := ADynTFTVirtualKeyboard^.BaseProps.Height;
+          Bmp.Canvas.Pen.Color := clBlack;
+          Bmp.Canvas.Brush.Color := clWhite;
+          Bmp.Canvas.Rectangle(0, 0, Bmp.Width, Bmp.Height);
+          Bmp.Canvas.Draw(0, 0, frmImg.imgVirtualKeyboard.Picture.Bitmap);
+
+          Bmp.SaveToStream(MemStream);
           FDynTFT_DrawBitmap_Callback(MemStream.Memory, MemStream.Size, 0, 0);
         finally
           MemStream.Free;
+          Bmp.Free;
         end;
       end;                                                                             
     finally

@@ -2,7 +2,7 @@ object frmRSSettings: TfrmRSSettings
   Left = 0
   Top = 0
   Caption = 'Remote System Settings'
-  ClientHeight = 220
+  ClientHeight = 241
   ClientWidth = 308
   Color = clBtnFace
   Constraints.MinHeight = 259
@@ -15,7 +15,7 @@ object frmRSSettings: TfrmRSSettings
   OldCreateOrder = False
   DesignSize = (
     308
-    220)
+    241)
   PixelsPerInch = 96
   TextHeight = 13
   object lbeRSServerAddress: TLabeledEdit
@@ -50,22 +50,32 @@ object frmRSSettings: TfrmRSSettings
   end
   object btnOK: TButton
     Left = 72
-    Top = 187
+    Top = 208
     Width = 75
     Height = 25
     Anchors = [akBottom]
     Caption = 'OK'
     TabOrder = 3
     OnClick = btnOKClick
+    ExplicitTop = 187
   end
   object btnCancel: TButton
     Left = 160
-    Top = 187
+    Top = 208
     Width = 75
     Height = 25
     Anchors = [akBottom]
     Caption = 'Cancel'
     TabOrder = 4
     OnClick = btnCancelClick
+    ExplicitTop = 187
+  end
+  object chkLogDrawingRequests: TCheckBox
+    Left = 96
+    Top = 171
+    Width = 139
+    Height = 17
+    Caption = 'Log drawing requests'
+    TabOrder = 5
   end
 end
