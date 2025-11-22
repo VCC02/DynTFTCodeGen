@@ -205,7 +205,7 @@ Line_7=procedure PDynTFTVirtualTable_SetRemainingProperties(ADynTFTVirtualTable:
 
 [OneTimeComponentInitCode_Implementation]
 ;One time initialization code for components of this type, placed under the implementation section. Indentation is available, using the "" character, instead of blank.
-Count=59
+Count=62
 Line_0=procedure PDynTFTVirtualTable_CreateColumns(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, ItemsCount {$IFDEF ItemsVisibility}, TotalVisibleCount{$ENDIF}: Integer; {$IFDEF IsMCU}var Captions: TVirtualTableColumnCaptionArr{$ELSE} const Captions: array of TVirtualTableColumnCaption{$ENDIF} {$IFNDEF UseExternalItems}{$IFDEF ItemsVisibility}; {$IFDEF IsMCU}var AItemsVisible: TVirtualTableColumnByteArr{$ELSE} const AItemsVisible: array of Byte{$ENDIF}{$ENDIF} {$IFDEF ItemsEnabling}; {$IFDEF IsMCU}var AItemsEnabled: TVirtualTableColumnByteArr{$ELSE} const AItemsEnabled: array of Byte{$ENDIF}{$ENDIF}{$ENDIF} {$IFDEF DynTFTFontSupport}; AHeaderActiveFont: PByte{$ENDIF});
 Line_1=var
 Line_2=i {$IFNDEF UseExternalItems}, j{$ENDIF}: Integer;
@@ -252,19 +252,22 @@ Line_42=var
 Line_43=i: Integer;
 Line_44=TempListBox: PDynTFTListBox;
 Line_45=TempItems: PDynTFTItems;
-Line_46=begin
-Line_47=for i := 0 to ColumnCount - 1 do
-Line_48=begin
-Line_49=TempListBox := PDynTFTListBox(TPtrRec(ADynTFTVirtualTable^.Columns^.Content^[i]));
-Line_50=TempItems := TempListBox^.Items;
-Line_51=TempItems^.ItemHeight := AItemHeight;
-Line_52=TempItems^.ItemIndex := AItemIndex;
-Line_53=TempItems^.VisibleIcons := AVisibleIcons;
-Line_54={$IFDEF DynTFTFontSupport}
-Line_55=TempItems^.ActiveFont := AActiveFont;
-Line_56={$ENDIF}
-Line_57=end;
-Line_58=end;
+Line_46=TempHeaders: PDynTFTPanel;
+Line_47=begin
+Line_48=for i := 0 to ColumnCount - 1 do
+Line_49=begin
+Line_50=TempListBox := PDynTFTListBox(TPtrRec(ADynTFTVirtualTable^.Columns^.Content^[i]));
+Line_51=TempItems := TempListBox^.Items;
+Line_52=TempItems^.ItemHeight := AItemHeight;
+Line_53=TempItems^.ItemIndex := AItemIndex;
+Line_54=TempItems^.VisibleIcons := AVisibleIcons;
+Line_55=TempHeaders := PDynTFTPanel(TPtrRec(ADynTFTVirtualTable^.HeaderItems^.Content^[i]));
+Line_56={$IFDEF DynTFTFontSupport}
+Line_57=TempItems^.ActiveFont := AActiveFont;
+Line_58=TempHeaders^.ActiveFont := AActiveFont;
+Line_59={$ENDIF}
+Line_60=end;
+Line_61=end;
 
 [PerInstanceInitConstants]
 ;Initialization constants for every instance of components of this type. Indentation is available, using the "" character, instead of blank. Replacements are available, by enclosing property names between "_<" and ">_". There are also some function replacements. Examples: "_<NoString_ObjectName>_", "_<Left>_", "_<Top>_", "_<Length(Items)>_", "_<CSV(Items)>_", "_<Items^.ActiveFont>__Font".
