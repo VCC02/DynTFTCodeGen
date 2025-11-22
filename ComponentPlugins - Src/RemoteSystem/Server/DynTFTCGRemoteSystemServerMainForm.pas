@@ -816,11 +816,14 @@ procedure DrawBitmap_Callback(APointerToBmpStreamMem: Pointer; AContentSize: Int
 var
   Res: string;
   MemStream: TMemoryStream;
+  s: string;
+  i: Integer;
+  b: Byte;
 begin
   Res := CDPDynTFT_DrawBitmap + CDrawingCmdFieldSeparator +
          'AContentSize=' + IntToHex(AContentSize, 1) + CDrawingCmdFieldSeparator +
-         'x=' + IntToHex(x, 1) + CDrawingCmdFieldSeparator + CDrawingCmdFieldSeparator +
-         'y=' + IntToHex(y, 1);
+         'x=' + IntToHex(x, 1) + CDrawingCmdFieldSeparator + 
+         'y=' + IntToHex(y, 1) + CDrawingCmdFieldSeparator;
 
   MemStream := TMemoryStream.Create;
   try
@@ -833,7 +836,15 @@ begin
     MemStream.Free;
   end;
 
-  //AddDrawingCommand(Res);  //commented because this procedure already calls Socket.WriteLn
+//  SetLength(s, AContentSize shl 1);
+//  for i := 0 to AContentSize - 1 do
+//  begin
+//    b := PByte(Int64(MemStream.Memory) + i)^;
+//    System.Move(PByte(@b)^, Pointer(@s[i shl 1 + 1])^, 2);
+//  end;  
+//
+//  Res := Res + 'Content=' + s + CDrawingCmdFieldSeparator;
+//  AddDrawingCommand(Res);  //commented because this procedure already calls Socket.WriteLn
 end;
 
 

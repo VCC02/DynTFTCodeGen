@@ -489,6 +489,8 @@ var
   AContentSize: Int64;
   x, y: Integer;
   MemStream: TMemoryStream;
+//  s: string;
+//  i: Integer;
 begin
   AStringList := TStringList.Create;
   MemStream := TMemoryStream.Create;
@@ -500,6 +502,13 @@ begin
 
     MemStream.SetSize(AContentSize);
     ASocket.ReadStream(MemStream, AContentSize);
+
+//    s := AStringList.Values['Content'];
+//    //SetLength(s, AContentSize shl 1);
+//    MemStream.SetSize(AContentSize);
+//    for i := 0 to AContentSize - 1 do
+//      System.Move(Pointer(@s[i shl 1 + 1])^, PByte(Int64(MemStream.Memory) + i)^, 2);
+
     FDynTFT_DrawBitmap_Callback(MemStream.Memory, AContentSize, x, y);
   finally
     AStringList.Free;
