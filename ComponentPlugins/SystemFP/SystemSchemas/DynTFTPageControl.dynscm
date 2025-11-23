@@ -184,7 +184,7 @@ Line_2=C_<NoString_ObjectName>__ButtonWidths: array[0.._<Length(Items)>_ - 1] 
 
 [PerInstanceInitCode]
 Count=10
-Line_0={$DEFINE _<NoString_ObjectName>___<NoString_TabArrangement>_}
+Line_0={$DEFINE _<NoString_ObjectName>___<NoString_TabArrangement>_}
 Line_1={$IFDEF _<NoString_ObjectName>__CVertical}
 Line_2=PDynTFTPageControl_CreateAllTabButtonsAsVertical(_<Left>_, _<Top>_, _<Width>_, _<ButtonHeight>_, _<PageCount>_, _<NoString_LocalObjectName>_, C_<NoString_ObjectName>__Captions);
 Line_3={$ELSE}

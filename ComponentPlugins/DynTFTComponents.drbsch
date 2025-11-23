@@ -7,7 +7,7 @@ Line_3=The ReservedComponentPropertiesSchema category contains properties which 
 
 [Settings]
 Title=Schema metadata for DynTFTCodeGen's component schema files.
-CategoryCount=15
+CategoryCount=16
 
 [PredefinedDataTypes]
 Count=5
@@ -192,6 +192,16 @@ Item_0=Line_~Index~
 Item_0_EditorType=UserEditor
 
 [Cat_12]
+Name=PerInstanceInitCodeAfterSettingProperties
+CategoryComment=Initialization code for every instance of components of this type, called after setting the component properties. Indentation is available, using the "" character, instead of blank. Replacements are available, by enclosing property names between "_<" and ">_". There are also some function replacements. Examples: "_<NoString_ObjectName>_", "_<Left>_", "_<Top>_", "_<Length(Items)>_", "_<CSV(Items)>_", "_<Items^.ActiveFont>__Font".
+Item_CountKey=Count
+CategoryEnabled=1
+StructureType=1
+CountableCount=1
+Item_0=Line_~Index~
+Item_0_EditorType=UserEditor
+
+[Cat_13]
 Name=CreateComponentCode
 CategoryComment=Creation code for every instance of components of this type. Indentation is available, using the "" character, instead of blank. Replacements are available, by enclosing property names between "_<" and ">_". There are also some function replacements. Examples: "_<NoString_ObjectName>_", "_<Left>_", "_<Top>_", "_<Length(Items)>_", "_<CSV(Items)>_", "_<Items^.ActiveFont>__Font".
 Item_CountKey=Count
@@ -201,7 +211,7 @@ CountableCount=1
 Item_0=Line_~Index~
 Item_0_EditorType=UserEditor
 
-[Cat_13]
+[Cat_14]
 Name=ComponentDependencies
 CategoryComment=List of components, which are required to be registered, because this component will require them.
 Item_CountKey=Count
@@ -211,7 +221,7 @@ CountableCount=1
 Item_0=Comp_~Index~_Name
 Item_0_EditorType=Text
 
-[Cat_14]
+[Cat_15]
 Name=ComponentRegistration
 CategoryComment=Name of the event registration procedure, then name of the component type function.
 Item_CountKey=Count

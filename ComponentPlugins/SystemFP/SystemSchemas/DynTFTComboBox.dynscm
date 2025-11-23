@@ -221,7 +221,7 @@ Count=0
 
 [PerInstanceInitCode]
 Count=4
-Line_0={$DEFINE _<NoString_ObjectName>__Enabled__<Enabled>_}
+Line_0={$DEFINE _<NoString_ObjectName>__Enabled__<Enabled>_}
 Line_1={$IFDEF _<NoString_ObjectName>__Enabled_0}
 Line_2=DynTFTDisableComboBox(_<NoString_ObjectName>_);
 Line_3={$ENDIF}

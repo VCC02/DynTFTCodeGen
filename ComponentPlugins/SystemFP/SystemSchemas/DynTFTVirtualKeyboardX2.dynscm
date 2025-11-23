@@ -3,13 +3,19 @@
 FileName=$SelfDir$\..\..\DynTFTComponents.drbsch
 
 [ComponentPropertiesSchema]
-Count=1
+Count=2
 Prop_0_Name=Color
 Prop_0_DataType=TColor
 Prop_0_DefaultValue=CL_DynTFTVirtualKeyboardX2_Background
 Prop_0_Description=Component color
 Prop_0_AvailableOnCompilerDirectives=
 Prop_0_DesignTimeOnly=0
+Prop_1_Name=ActiveFont
+Prop_1_DataType=PByte
+Prop_1_DefaultValue=@TFT_defaultFont
+Prop_1_Description=Component font
+Prop_1_AvailableOnCompilerDirectives=DynTFTFontSupport
+Prop_1_DesignTimeOnly=0
 
 [ComponentPropertiesOverrides]
 Count=6
@@ -75,6 +81,12 @@ Count=0
 
 [PerInstanceInitCode]
 Count=0
+
+[PerInstanceInitCodeAfterSettingProperties]
+Count=3
+Line_0={$IFDEF DynTFTFontSupport}
+Line_1=DynTFTSetVirtualKeyboardActiveFontX2(_<NoString_LocalObjectName>_);
+Line_2={$ENDIF}
 
 [CreateComponentCode]
 Count=1

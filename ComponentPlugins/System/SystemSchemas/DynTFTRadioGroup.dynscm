@@ -152,7 +152,7 @@ Line_0=C_<NoString_ObjectName>__Captions: array[0.._<Length(Items)>_ - 1] of T
 
 [PerInstanceInitCode]
 Count=5
-Line_0=PDynTFTRadioGroup_CreateAllRadioButtons(_<Left>_ + _<ButtonIndent>_, _<Top>_ + _<ItemHeight>_ + _<ButtonYOffset>_ - 1, _<Width>_ - _<ButtonIndent>_ - 6, _<ItemHeight>_, _<ButtonCount>_, _<NoString_LocalObjectName>_, C_<NoString_ObjectName>__Captions);
+Line_0=PDynTFTRadioGroup_CreateAllRadioButtons(_<Left>_ + _<ButtonIndent>_, _<Top>_ + _<ItemHeight>_ + _<ButtonYOffset>_ - 1, _<Width>_ - _<ButtonIndent>_ - 6, _<ItemHeight>_, _<ButtonCount>_, _<NoString_LocalObjectName>_, C_<NoString_ObjectName>__Captions);
 Line_1={$DEFINE _<NoString_ObjectName>__Enabled__<Enabled>_}
 Line_2={$IFDEF _<NoString_ObjectName>__Enabled_0}
 Line_3=DynTFTDisableRadioGroup(_<NoString_ObjectName>_);
