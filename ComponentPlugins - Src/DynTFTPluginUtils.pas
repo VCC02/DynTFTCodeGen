@@ -209,11 +209,18 @@ begin
         TempFontSettings[i] := TFontSettings(Pointer(QWord(AFontSettings.AddrOfFirst) + i * SizeOf(TFontSettings))^);
 
       try
-        ACompDrawingProcedures[APanelBase.DynTFTComponentType](APanelBase, TempPropertiesOrEvents, TempSchemaConstants, TempColorConstants, TempFontSettings)
-      except
-        raise Exception.Create('Drawing procedure not assigned.' + #13#10 +
-                               'Is the component properly registered in RegisterAllComponentsEvents?' + #13#10 +
-                               'If this compoenent is part of a remote plugin, is the server available?');
+        ACompDrawingProcedures[APanelBase.DynTFTComponentType](APanelBase, TempPropertiesOrEvents, TempSchemaConstants, TempColorConstants, TempFontSettings);
+      except                                                  
+        on E: Exception do
+        begin
+          if Pos(COUTOFMEMORYMESSAGE, E.Message) > 0 then
+            raise Exception.Create(E.Message)
+          else
+            raise Exception.Create('Drawing procedure not assigned.' + #13#10 +
+                                   'Is the component properly registered in RegisterAllComponentsEvents?' + #13#10 +
+                                   'If this component is part of a remote plugin, is the server available?' + #13#10 +
+                                   E.Message);
+        end;
       end;
 
       //there may be components with modified properties, as a result of calls to UpdateComponentPropertyByName
