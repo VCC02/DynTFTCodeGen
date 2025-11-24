@@ -198,14 +198,14 @@ Line_0=//VirtualTable code
 Line_1=type
 Line_2=TVirtualTableColumnCaption = string[CMaxPanelStringLength];
 Line_3=TVirtualTableColumnCaptionArr = array{$IFDEF IsMCU}[0..0]{$ENDIF} of TVirtualTableColumnCaption;
-Line_4=TVirtualTableColumnByteArr = array of Byte;
+Line_4=TVirtualTableColumnByteArr = array{$IFDEF IsMCU}[0..0]{$ENDIF} of Byte;
 Line_5=
 Line_6=procedure PDynTFTVirtualTable_CreateColumns(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, ItemsCount {$IFDEF ItemsVisibility}, TotalVisibleCount{$ENDIF}: Integer; {$IFDEF IsMCU}var Captions: TVirtualTableColumnCaptionArr{$ELSE} const Captions: array of TVirtualTableColumnCaption{$ENDIF} {$IFNDEF UseExternalItems}{$IFDEF ItemsVisibility}; {$IFDEF IsMCU}var AItemsVisible: TVirtualTableColumnByteArr{$ELSE} const AItemsVisible: array of Byte{$ENDIF}{$ENDIF} {$IFDEF ItemsEnabling}; {$IFDEF IsMCU}var AItemsEnabled: TVirtualTableColumnByteArr{$ELSE} const AItemsEnabled: array of Byte{$ENDIF}{$ENDIF}{$ENDIF} {$IFDEF DynTFTFontSupport}; AHeaderActiveFont: PByte{$ENDIF});
 Line_7=procedure PDynTFTVirtualTable_SetRemainingProperties(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, AItemHeight, AItemIndex: Integer {$IFDEF DynTFTFontSupport}; AItemsActiveFont, AHeaderActiveFont: PByte{$ENDIF}; AVisibleIcons: Boolean);
 
 [OneTimeComponentInitCode_Implementation]
 ;One time initialization code for components of this type, placed under the implementation section. Indentation is available, using the "" character, instead of blank.
-Count=62
+Count=64
 Line_0=procedure PDynTFTVirtualTable_CreateColumns(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, ItemsCount {$IFDEF ItemsVisibility}, TotalVisibleCount{$ENDIF}: Integer; {$IFDEF IsMCU}var Captions: TVirtualTableColumnCaptionArr{$ELSE} const Captions: array of TVirtualTableColumnCaption{$ENDIF} {$IFNDEF UseExternalItems}{$IFDEF ItemsVisibility}; {$IFDEF IsMCU}var AItemsVisible: TVirtualTableColumnByteArr{$ELSE} const AItemsVisible: array of Byte{$ENDIF}{$ENDIF} {$IFDEF ItemsEnabling}; {$IFDEF IsMCU}var AItemsEnabled: TVirtualTableColumnByteArr{$ELSE} const AItemsEnabled: array of Byte{$ENDIF}{$ENDIF}{$ENDIF} {$IFDEF DynTFTFontSupport}; AHeaderActiveFont: PByte{$ENDIF});
 Line_1=var
 Line_2=i {$IFNDEF UseExternalItems}, j{$ENDIF}: Integer;
@@ -260,14 +260,16 @@ Line_50=TempListBox := PDynTFTListBox(TPtrRec(ADynTFTVirtualTable^.Columns^.
 Line_51=TempItems := TempListBox^.Items;
 Line_52=TempItems^.ItemHeight := AItemHeight;
 Line_53=TempItems^.ItemIndex := AItemIndex;
-Line_54=TempItems^.VisibleIcons := AVisibleIcons;
-Line_55=TempHeader := PDynTFTPanel(TPtrRec(ADynTFTVirtualTable^.HeaderItems^.Content^[i]));
-Line_56={$IFDEF DynTFTFontSupport}
-Line_57=TempItems^.ActiveFont := AItemsActiveFont;
-Line_58=TempHeader^.ActiveFont := AHeaderActiveFont;
-Line_59={$ENDIF}
-Line_60=end;
-Line_61=end;
+Line_54={$IFDEF ListIcons}
+Line_55=TempItems^.VisibleIcons := AVisibleIcons;
+Line_56={$ENDIF}
+Line_57=TempHeader := PDynTFTPanel(TPtrRec(ADynTFTVirtualTable^.HeaderItems^.Content^[i]));
+Line_58={$IFDEF DynTFTFontSupport}
+Line_59=TempItems^.ActiveFont := AItemsActiveFont;
+Line_60=TempHeader^.ActiveFont := AHeaderActiveFont;
+Line_61={$ENDIF}
+Line_62=end;
+Line_63=end;
 
 [PerInstanceInitConstants]
 ;Initialization constants for every instance of components of this type. Indentation is available, using the "" character, instead of blank. Replacements are available, by enclosing property names between "_<" and ">_". There are also some function replacements. Examples: "_<NoString_ObjectName>_", "_<Left>_", "_<Top>_", "_<Length(Items)>_", "_<CSV(Items)>_", "_<Items^.ActiveFont>__Font".
@@ -276,8 +278,8 @@ Line_0=C_<NoString_ObjectName>__Captions: array[0.._<Length(HeaderCaptions)>_ 
 Line_1=C_<NoString_ObjectName>__ColumnWidths: array[0.._<Length(HeaderCaptions)>_ - 1] of Integer = (_<CSV(ColumnWidths)>_);
 Line_2=C_<NoString_ObjectName>__ItemsCount = _<Length(Items^.Strings)>_;
 Line_3=C_<NoString_ObjectName>__TotalVisibleCount = _<Items^.TotalVisibleCount>_;
-Line_4=C_<NoString_ObjectName>__ItemsVisible: array[0.._<Length(Items^.Strings)>_ - 1] of Byte = (_<CSV(Items^.ItemsVisible)>_);
-Line_5=C_<NoString_ObjectName>__ItemsEnabled: array[0.._<Length(Items^.Strings)>_ - 1] of Byte = (_<CSV(Items^.ItemsEnabled)>_);
+Line_4={$IFDEF ItemsVisibility}C_<NoString_ObjectName>__ItemsVisible: array[0.._<Length(Items^.Strings)>_ - 1] of Byte = (_<CSV(Items^.ItemsVisible)>_);{$ENDIF}
+Line_5={$IFDEF ItemsEnabling}C_<NoString_ObjectName>__ItemsEnabled: array[0.._<Length(Items^.Strings)>_ - 1] of Byte = (_<CSV(Items^.ItemsEnabled)>_);{$ENDIF}
 
 [PerInstanceInitCode]
 ;Initialization code for every instance of components of this type. Indentation is available, using the "" character, instead of blank. Replacements are available, by enclosing property names between "_<" and ">_". There are also some function replacements. Examples: "_<NoString_ObjectName>_", "_<Left>_", "_<Top>_", "_<Length(Items)>_", "_<CSV(Items)>_", "_<Items^.ActiveFont>__Font".
