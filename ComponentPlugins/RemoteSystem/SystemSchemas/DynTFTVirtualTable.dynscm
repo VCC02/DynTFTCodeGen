@@ -143,7 +143,7 @@ Prop_1_ReadOnly=0
 ;Main component events.
 Count=3
 Prop_0_Name=OnGetItem
-Prop_0_DataType=POnGetItemEvent
+Prop_0_DataType=POnGetVTItemEvent
 Prop_0_DefaultValue=
 Prop_0_Description=This is called to display every item on every paint action.
 Prop_0_AvailableOnCompilerDirectives=UseExternalItems
@@ -159,7 +159,7 @@ Prop_1_DesignTimeOnly=0
 Prop_1_ReadOnly=0
 Prop_1_DataTypeDefinition=procedure _<HandlerName>_(AItems: PPtrRec; Index: LongInt; var ItemText: string {$IFDEF ItemsVisibility}; IsVisible: PBoolean {$ENDIF} {$IFDEF ItemsEnabling}; IsEnabled: PBoolean {$ENDIF});
 Prop_2_Name=OnDrawIcon
-Prop_2_DataType=POnDrawIconEvent
+Prop_2_DataType=POnDrawVTIconEvent
 Prop_2_DefaultValue=
 Prop_2_Description=This is called to draw an icon on every item, only if the VisibleIcons property is True. Usually, the icon coordinates are CIconIndent (as x) and ItemY (as Y).
 Prop_2_AvailableOnCompilerDirectives=ListIcons
