@@ -210,7 +210,7 @@ begin
 
       try
         ACompDrawingProcedures[APanelBase.DynTFTComponentType](APanelBase, TempPropertiesOrEvents, TempSchemaConstants, TempColorConstants, TempFontSettings);
-      except                                                  
+      except
         on E: Exception do
         begin
           if Pos(COUTOFMEMORYMESSAGE, E.Message) > 0 then
@@ -243,7 +243,7 @@ begin
           for i := 0 to TempStringList.Count - 1 do
           begin
             try
-              DynTFT_Write_Text(TempStringList.Strings[i], 0, i * 15);  //this call will to work when using the RS plugin and its server is not available
+              DynTFT_Write_Text(TempStringList.Strings[i], 0, i * 15);  //this call will not work when using the RS plugin and its server is not available
             except
               on E: Exception do
                 raise Exception.Create('Drawing procedures are not available on handling ex. Ex: ' + E.Message + '.  ' + TempStringList.Strings[i]);
