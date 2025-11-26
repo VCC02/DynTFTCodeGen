@@ -3,7 +3,7 @@
 FileName=$SelfDir$\..\..\DynTFTComponents.drbsch
 
 [ComponentPropertiesSchema]
-Count=11
+Count=12
 Prop_0_Name=Font_Color
 Prop_0_DataType=TColor
 Prop_0_DefaultValue=CL_DynTFTItems_EnabledFont
@@ -72,6 +72,13 @@ Prop_10_DefaultValue=False
 Prop_10_Description=When True, the OnDrawIcon event is triggered to draw the item icon. When False, only the item text is displayed.
 Prop_10_AvailableOnCompilerDirectives=ListIcons
 Prop_10_DesignTimeOnly=0
+Prop_11_Name=ItemsTextCrop
+Prop_11_DataType=String
+Prop_11_DefaultValue=More on property description.
+Prop_11_Description=This is a dummy property, which shows the available compiler directive, ItemsTextCrop, which if defined at project-level, makes the component crop the text to its visible area. This prevents the text to be painted outside the component.
+Prop_11_AvailableOnCompilerDirectives=ItemsTextCrop
+Prop_11_DesignTimeOnly=1
+Prop_11_ReadOnly=1
 
 [ComponentPropertiesOverrides]
 Count=2

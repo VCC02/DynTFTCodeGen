@@ -4,7 +4,7 @@ FileName=$SelfDir$\..\..\DynTFTComponents.drbsch
 
 [ComponentPropertiesSchema]
 ;Main component properties.
-Count=17
+Count=18
 Prop_0_Name=Items^.Font_Color
 Prop_0_DataType=TColor
 Prop_0_DefaultValue=CL_DynTFTItems_EnabledFont
@@ -75,10 +75,10 @@ Prop_9_Description=These are the enabled items. All default to enabled (True) if
 Prop_9_AvailableOnCompilerDirectives=not UseExternalItems,ItemsEnabling
 Prop_9_DesignTimeOnly=1
 Prop_9_ReadOnly=0
-Prop_10_Name=Items^.VisibleIcons
-Prop_10_DataType=Boolean
-Prop_10_DefaultValue=False
-Prop_10_Description=When True, the OnDrawIcon event is triggered to draw the item icon. When False, only the item text is displayed.
+Prop_10_Name=VisibleIcons
+Prop_10_DataType=Array of Boolean[ColumnCount]
+Prop_10_DefaultValue=
+Prop_10_Description=When an array item is True, the OnDrawIcon event is triggered to draw the item icon. When False, only the item text is displayed. The length of this array should match the number of columns.
 Prop_10_AvailableOnCompilerDirectives=ListIcons
 Prop_10_DesignTimeOnly=1
 Prop_10_ReadOnly=0
@@ -124,6 +124,13 @@ Prop_16_Description=Header font color
 Prop_16_AvailableOnCompilerDirectives=
 Prop_16_DesignTimeOnly=1
 Prop_16_ReadOnly=0
+Prop_17_Name=Items^.VisibleIcons
+Prop_17_DataType=Boolean
+Prop_17_DefaultValue=
+Prop_17_Description=Dummy property for compatibility. Please use the VisibleIcons property, to actually set icon visibility.
+Prop_17_AvailableOnCompilerDirectives=ListIcons
+Prop_17_DesignTimeOnly=1
+Prop_17_ReadOnly=1
 
 [ReservedComponentPropertiesSchema]
 ;Properties used for debugging. Should be copied to the ComponentPropertiesSchema category when needed. This list may also contain events, if they share the same structure.
@@ -161,7 +168,7 @@ Prop_1_DataTypeDefinition=procedure _<HandlerName>_(AItems: PPtrRec; Index: Long
 Prop_2_Name=OnDrawIcon
 Prop_2_DataType=POnDrawVTIconEvent
 Prop_2_DefaultValue=
-Prop_2_Description=This is called to draw an icon on every item, only if the VisibleIcons property is True. Usually, the icon coordinates are CIconIndent (as x) and ItemY (as Y).
+Prop_2_Description=This is called to draw an icon on every item, only if the matching array element from the VisibleIcons property is True for that column. Usually, the icon coordinates are CIconIndent (as x) and ItemY (as Y).
 Prop_2_AvailableOnCompilerDirectives=ListIcons
 Prop_2_DesignTimeOnly=0
 Prop_2_ReadOnly=0
@@ -200,13 +207,13 @@ Line_2=TVirtualTableColumnCaption = string[CMaxPanelStringLength];
 Line_3=TVirtualTableColumnCaptionArr = array{$IFDEF IsMCU}[0..0]{$ENDIF} of TVirtualTableColumnCaption;
 Line_4=TVirtualTableColumnByteArr = array{$IFDEF IsMCU}[0..0]{$ENDIF} of Byte;
 Line_5=
-Line_6=procedure PDynTFTVirtualTable_CreateColumns(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, ItemsCount {$IFDEF ItemsVisibility}, TotalVisibleCount{$ENDIF}: Integer; {$IFDEF IsMCU}var Captions: TVirtualTableColumnCaptionArr{$ELSE} const Captions: array of TVirtualTableColumnCaption{$ENDIF} {$IFNDEF UseExternalItems}{$IFDEF ItemsVisibility}; {$IFDEF IsMCU}var AItemsVisible: TVirtualTableColumnByteArr{$ELSE} const AItemsVisible: array of Byte{$ENDIF}{$ENDIF} {$IFDEF ItemsEnabling}; {$IFDEF IsMCU}var AItemsEnabled: TVirtualTableColumnByteArr{$ELSE} const AItemsEnabled: array of Byte{$ENDIF}{$ENDIF}{$ENDIF} {$IFDEF DynTFTFontSupport}; AHeaderActiveFont: PByte{$ENDIF});
-Line_7=procedure PDynTFTVirtualTable_SetRemainingProperties(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, AItemHeight, AItemIndex: Integer {$IFDEF DynTFTFontSupport}; AItemsActiveFont, AHeaderActiveFont: PByte{$ENDIF}; AVisibleIcons: Boolean);
+Line_6=procedure PDynTFTVirtualTable_CreateColumns(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, ItemsCount {$IFDEF ItemsVisibility}, TotalVisibleCount{$ENDIF}: Integer; {$IFDEF IsMCU}var Captions: TVirtualTableColumnCaptionArr{$ELSE} const Captions: array of TVirtualTableColumnCaption{$ENDIF} {$IFNDEF UseExternalItems}{$IFDEF ItemsVisibility}; {$IFDEF IsMCU}var AItemsVisible: TVirtualTableColumnByteArr{$ELSE} const AItemsVisible: array of Byte{$ENDIF}{$ENDIF} {$IFDEF ItemsEnabling}; {$IFDEF IsMCU}var AItemsEnabled: TVirtualTableColumnByteArr{$ELSE} const AItemsEnabled: array of Byte{$ENDIF}{$ENDIF}{$ENDIF} {$IFDEF ListIcons}; {$IFDEF IsMCU}var AIconsVisible: TVirtualTableColumnByteArr{$ELSE} const AIconsVisible: array of Byte{$ENDIF}{$ENDIF} {$IFDEF DynTFTFontSupport}; AHeaderActiveFont: PByte{$ENDIF});
+Line_7=procedure PDynTFTVirtualTable_SetRemainingProperties(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, AItemHeight, AItemIndex: Integer {$IFDEF DynTFTFontSupport}; AItemsActiveFont, AHeaderActiveFont: PByte{$ENDIF});
 
 [OneTimeComponentInitCode_Implementation]
 ;One time initialization code for components of this type, placed under the implementation section. Indentation is available, using the "" character, instead of blank.
 Count=64
-Line_0=procedure PDynTFTVirtualTable_CreateColumns(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, ItemsCount {$IFDEF ItemsVisibility}, TotalVisibleCount{$ENDIF}: Integer; {$IFDEF IsMCU}var Captions: TVirtualTableColumnCaptionArr{$ELSE} const Captions: array of TVirtualTableColumnCaption{$ENDIF} {$IFNDEF UseExternalItems}{$IFDEF ItemsVisibility}; {$IFDEF IsMCU}var AItemsVisible: TVirtualTableColumnByteArr{$ELSE} const AItemsVisible: array of Byte{$ENDIF}{$ENDIF} {$IFDEF ItemsEnabling}; {$IFDEF IsMCU}var AItemsEnabled: TVirtualTableColumnByteArr{$ELSE} const AItemsEnabled: array of Byte{$ENDIF}{$ENDIF}{$ENDIF} {$IFDEF DynTFTFontSupport}; AHeaderActiveFont: PByte{$ENDIF});
+Line_0=procedure PDynTFTVirtualTable_CreateColumns(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, ItemsCount {$IFDEF ItemsVisibility}, TotalVisibleCount{$ENDIF}: Integer; {$IFDEF IsMCU}var Captions: TVirtualTableColumnCaptionArr{$ELSE} const Captions: array of TVirtualTableColumnCaption{$ENDIF} {$IFNDEF UseExternalItems}{$IFDEF ItemsVisibility}; {$IFDEF IsMCU}var AItemsVisible: TVirtualTableColumnByteArr{$ELSE} const AItemsVisible: array of Byte{$ENDIF}{$ENDIF} {$IFDEF ItemsEnabling}; {$IFDEF IsMCU}var AItemsEnabled: TVirtualTableColumnByteArr{$ELSE} const AItemsEnabled: array of Byte{$ENDIF}{$ENDIF}{$ENDIF} {$IFDEF ListIcons}; {$IFDEF IsMCU}var AIconsVisible: TVirtualTableColumnByteArr{$ELSE} const AIconsVisible: array of Byte{$ENDIF}{$ENDIF} {$IFDEF DynTFTFontSupport}; AHeaderActiveFont: PByte{$ENDIF});
 Line_1=var
 Line_2=i {$IFNDEF UseExternalItems}, j{$ENDIF}: Integer;
 Line_3=TempListBox: PDynTFTListBox;
@@ -243,26 +250,26 @@ Line_33=TempItems^.ItemsEnabled[j] := AItemsEnabled[j] = 1;
 Line_34={$ENDIF}
 Line_35=end;
 Line_36={$ENDIF}
-Line_37=end;
-Line_38=end;
-Line_39=
-Line_40=
-Line_41=procedure PDynTFTVirtualTable_SetRemainingProperties(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, AItemHeight, AItemIndex: Integer {$IFDEF DynTFTFontSupport}; AItemsActiveFont, AHeaderActiveFont: PByte{$ENDIF}; AVisibleIcons: Boolean);
-Line_42=var
-Line_43=i: Integer;
-Line_44=TempListBox: PDynTFTListBox;
-Line_45=TempItems: PDynTFTItems;
-Line_46=TempHeader: PDynTFTPanel;
-Line_47=begin
-Line_48=for i := 0 to ColumnCount - 1 do
-Line_49=begin
-Line_50=TempListBox := PDynTFTListBox(TPtrRec(ADynTFTVirtualTable^.Columns^.Content^[i]));
-Line_51=TempItems := TempListBox^.Items;
-Line_52=TempItems^.ItemHeight := AItemHeight;
-Line_53=TempItems^.ItemIndex := AItemIndex;
-Line_54={$IFDEF ListIcons}
-Line_55=TempItems^.VisibleIcons := AVisibleIcons;
-Line_56={$ENDIF}
+Line_37={$IFDEF ListIcons}
+Line_38=TempItems^.VisibleIcons := AIconsVisible[i] = 1;
+Line_39={$ENDIF}
+Line_40=end;
+Line_41=end;
+Line_42=
+Line_43=
+Line_44=procedure PDynTFTVirtualTable_SetRemainingProperties(ADynTFTVirtualTable: PDynTFTVirtualTable; ColumnCount, AItemHeight, AItemIndex: Integer {$IFDEF DynTFTFontSupport}; AItemsActiveFont, AHeaderActiveFont: PByte{$ENDIF});
+Line_45=var
+Line_46=i: Integer;
+Line_47=TempListBox: PDynTFTListBox;
+Line_48=TempItems: PDynTFTItems;
+Line_49=TempHeader: PDynTFTPanel;
+Line_50=begin
+Line_51=for i := 0 to ColumnCount - 1 do
+Line_52=begin
+Line_53=TempListBox := PDynTFTListBox(TPtrRec(ADynTFTVirtualTable^.Columns^.Content^[i]));
+Line_54=TempItems := TempListBox^.Items;
+Line_55=TempItems^.ItemHeight := AItemHeight;
+Line_56=TempItems^.ItemIndex := AItemIndex;
 Line_57=TempHeader := PDynTFTPanel(TPtrRec(ADynTFTVirtualTable^.HeaderItems^.Content^[i]));
 Line_58={$IFDEF DynTFTFontSupport}
 Line_59=TempItems^.ActiveFont := AItemsActiveFont;
@@ -273,19 +280,20 @@ Line_63=end;
 
 [PerInstanceInitConstants]
 ;Initialization constants for every instance of components of this type. Indentation is available, using the "" character, instead of blank. Replacements are available, by enclosing property names between "_<" and ">_". There are also some function replacements. Examples: "_<NoString_ObjectName>_", "_<Left>_", "_<Top>_", "_<Length(Items)>_", "_<CSV(Items)>_", "_<Items^.ActiveFont>__Font".
-Count=6
+Count=7
 Line_0=C_<NoString_ObjectName>__Captions: array[0.._<Length(HeaderCaptions)>_ - 1] of TVirtualTableColumnCaption = (_<CSV(HeaderCaptions)>_);
 Line_1=C_<NoString_ObjectName>__ColumnWidths: array[0.._<Length(HeaderCaptions)>_ - 1] of Integer = (_<CSV(ColumnWidths)>_);
 Line_2=C_<NoString_ObjectName>__ItemsCount = _<Length(Items^.Strings)>_;
 Line_3=C_<NoString_ObjectName>__TotalVisibleCount = _<Items^.TotalVisibleCount>_;
-Line_4={$IFDEF ItemsVisibility}C_<NoString_ObjectName>__ItemsVisible: array[0.._<Length(Items^.Strings)>_ - 1] of Byte = (_<CSV(Items^.ItemsVisible)>_);{$ENDIF}
-Line_5={$IFDEF ItemsEnabling}C_<NoString_ObjectName>__ItemsEnabled: array[0.._<Length(Items^.Strings)>_ - 1] of Byte = (_<CSV(Items^.ItemsEnabled)>_);{$ENDIF}
+Line_4={$IFDEF ItemsVisibility}C_<NoString_ObjectName>__ItemsVisible: array[0.._<Length(Items^.Strings)>_ - 1] of Byte = (_<CSV(Items^.ItemsVisible)>_);{$ENDIF}  //Should be filled in from DynTFTCodeGen. Expected _<Length(Items^.Strings)>_ item(s).
+Line_5={$IFDEF ItemsEnabling}C_<NoString_ObjectName>__ItemsEnabled: array[0.._<Length(Items^.Strings)>_ - 1] of Byte = (_<CSV(Items^.ItemsEnabled)>_);{$ENDIF}  //Should be filled in from DynTFTCodeGen. Expected _<Length(Items^.Strings)>_ item(s).
+Line_6={$IFDEF ListIcons}C_<NoString_ObjectName>__VisibleIcons: array[0.._<Length(HeaderCaptions)>_ - 1] of Byte = (_<CSV(VisibleIcons)>_);{$ENDIF}  //Should be filled in from DynTFTCodeGen. Expected _<Length(HeaderCaptions)>_ item(s).
 
 [PerInstanceInitCode]
 ;Initialization code for every instance of components of this type. Indentation is available, using the "" character, instead of blank. Replacements are available, by enclosing property names between "_<" and ">_". There are also some function replacements. Examples: "_<NoString_ObjectName>_", "_<Left>_", "_<Top>_", "_<Length(Items)>_", "_<CSV(Items)>_", "_<Items^.ActiveFont>__Font".
 Count=2
-Line_0=PDynTFTVirtualTable_CreateColumns(_<NoString_LocalObjectName>_, _<ColumnCount>_, C_<NoString_ObjectName>__ItemsCount {$IFDEF ItemsVisibility}, C_<NoString_ObjectName>__TotalVisibleCount{$ENDIF}, C_<NoString_ObjectName>__Captions {$IFNDEF UseExternalItems}{$IFDEF ItemsVisibility}, C_<NoString_ObjectName>__ItemsVisible{$ENDIF} {$IFDEF ItemsEnabling}, C_<NoString_ObjectName>__ItemsEnabled{$ENDIF}{$ENDIF} {$IFDEF DynTFTFontSupport}, {$IFDEF IsDesktop} PByte(_<Header^.ActiveFont>__Font) {$ELSE} _<Header^.ActiveFont>_ {$ENDIF}{$ENDIF});
-Line_1=PDynTFTVirtualTable_SetRemainingProperties(_<NoString_LocalObjectName>_, _<ColumnCount>_, _<Items^.ItemHeight>_, _<Items^.ItemIndex>_ {$IFDEF DynTFTFontSupport}, {$IFDEF IsDesktop} PByte(_<Items^.ActiveFont>__Font), PByte(_<Header^.ActiveFont>__Font) {$ELSE} _<Items^.ActiveFont>_, _<Header^.ActiveFont>_ {$ENDIF}{$ENDIF}, _<Items^.VisibleIcons>_);
+Line_0=PDynTFTVirtualTable_CreateColumns(_<NoString_LocalObjectName>_, _<ColumnCount>_, C_<NoString_ObjectName>__ItemsCount {$IFDEF ItemsVisibility}, C_<NoString_ObjectName>__TotalVisibleCount{$ENDIF}, C_<NoString_ObjectName>__Captions {$IFNDEF UseExternalItems}{$IFDEF ItemsVisibility}, C_<NoString_ObjectName>__ItemsVisible{$ENDIF} {$IFDEF ItemsEnabling}, C_<NoString_ObjectName>__ItemsEnabled{$ENDIF}{$ENDIF} {$IFDEF ListIcons}, C_<NoString_ObjectName>__VisibleIcons{$ENDIF} {$IFDEF DynTFTFontSupport}, {$IFDEF IsDesktop} PByte(_<Header^.ActiveFont>__Font) {$ELSE} _<Header^.ActiveFont>_ {$ENDIF}{$ENDIF});
+Line_1=PDynTFTVirtualTable_SetRemainingProperties(_<NoString_LocalObjectName>_, _<ColumnCount>_, _<Items^.ItemHeight>_, _<Items^.ItemIndex>_ {$IFDEF DynTFTFontSupport}, {$IFDEF IsDesktop} PByte(_<Items^.ActiveFont>__Font), PByte(_<Header^.ActiveFont>__Font) {$ELSE} _<Items^.ActiveFont>_, _<Header^.ActiveFont>_ {$ENDIF}{$ENDIF});
 
 [CreateComponentCode]
 ;Creation code for every instance of components of this type. Indentation is available, using the "" character, instead of blank. Replacements are available, by enclosing property names between "_<" and ">_". There are also some function replacements. Examples: "_<NoString_ObjectName>_", "_<Left>_", "_<Top>_", "_<Length(Items)>_", "_<CSV(Items)>_", "_<Items^.ActiveFont>__Font".
