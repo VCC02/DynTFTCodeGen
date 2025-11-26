@@ -486,6 +486,7 @@ var
   i: Integer;
   LocalHeaderItems: TStringList;
   ColumnWidths: TStringList;
+  LocalVisibleIcons: TStringList;
   TempListBox: PDynTFTListBox;
   TempPanel: PDynTFTPanel;
 begin
@@ -500,7 +501,6 @@ begin
   try
     LocalHeaderItems.Text := GetPropertyValueInPropertiesOrEventsByName(PropertiesOrEvents, 'HeaderCaptions');
 
-    ////////////////////////////////  a similar for loop must be defined in schema file at component initialization / implementation, to actually create the columns
     for i := 1 to LocalHeaderItems.Count - 1 do //starts at 1, because there is already a first column
     begin
       TempListBox := DynTFTAddColumnToVirtualTable(ADynTFTVirtualTable);
@@ -508,11 +508,14 @@ begin
     end;
 
     ColumnWidths := TStringList.Create;
+    LocalVisibleIcons := TStringList.Create;
     try
       ColumnWidths.Text := GetPropertyValueInPropertiesOrEventsByName(PropertiesOrEvents, 'ColumnWidths');
+      LocalVisibleIcons.Text := GetPropertyValueInPropertiesOrEventsByName(PropertiesOrEvents, 'VisibleIcons');
 
       for i := 0 to LocalHeaderItems.Count - 1 do
       begin
+        TempListBox := PDynTFTListBox(ADynTFTVirtualTable^.Columns^.Content[i]);
         TempPanel := PDynTFTPanel(ADynTFTVirtualTable^.HeaderItems.Content^[i]);
         TempPanel.Caption := LocalHeaderItems.Strings[i];
 
@@ -520,6 +523,7 @@ begin
         TempPanel^.Font_Color := GetColorConstByNameFromAllColorConsts(ColorConstants, GetPropertyValueInPropertiesOrEventsByName(PropertiesOrEvents, 'Header^.Font_Color'), clAqua);
         TempPanel^.ActiveFont := PByte(FontPropertyValueToSFont(AFontSettings, GetPropertyValueInPropertiesOrEventsByName(PropertiesOrEvents, 'Header^.ActiveFont')));
 
+        TempListBox^.Items^.VisibleIcons := LocalVisibleIcons.Strings[i] = '1';
         try
           TempPanel.BaseProps.Width := StrToIntDef(ColumnWidths.Strings[i], 7);
         except //there may be AV, if the user did not define all column widths
@@ -529,6 +533,7 @@ begin
       end;
     finally
       ColumnWidths.Free;
+      LocalVisibleIcons.Free;
     end;
 
     ADynTFTVirtualTable^.HorizScrollBar^.Max := LocalHeaderItems.Count - 1;
@@ -1362,6 +1367,8 @@ begin
 
           DynTFT_Set_Font(PDynTFTListBox(ADynTFTVirtualTable^.Columns.Content^[0])^.Items^.ActiveFont, CL_GREEN, FO_HORIZONTAL);
           DynTFT_Write_Text('Ex on drawing VirtualTable', 2, 3);
+          DynTFT_Write_Text(EE.Message, 2, 23);
+          DynTFT_Write_Text('If a property was deleted in schema file, then this plugin has to be updated and recompiled.', 2, 43);
         except
           on E: Exception do
             raise Exception.Create('VirtualTable is still in work (' + E.Message + ')  EE="' + EE.Message + '"');
