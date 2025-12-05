@@ -205,7 +205,7 @@ begin
 end;
 
 
-function SetStreamSizeCallback(ANewSize: Int64; AStreamID: Int64): Pointer;
+function SetStreamSizeCallback(ANewSize: Int64; AStreamID: Int64): Pointer; stdcall;
 var
   TempMemStream: TMemoryStream;
 begin
@@ -575,7 +575,7 @@ begin
 end;
 
 
-procedure Set_Pen_Callback(pen_color: TColor; pen_width: Byte);
+procedure Set_Pen_Callback(pen_color: TColor; pen_width: Byte); stdcall;
 var
   Res: string;
 begin
@@ -587,7 +587,7 @@ begin
 end;
 
 
-procedure Set_Brush_Callback(brush_enabled: Byte; brush_color: TColor; gradient_enabled, gradient_orientation: Byte; gradient_color_from, gradient_color_to: TColor);
+procedure Set_Brush_Callback(brush_enabled: Byte; brush_color: TColor; gradient_enabled, gradient_orientation: Byte; gradient_color_from, gradient_color_to: TColor); stdcall;
 var
   Res: string;
 begin
@@ -603,7 +603,7 @@ begin
 end;
 
 
-procedure Set_Font_Callback(activeFont: PByte; font_color: TColor; font_orientation: Word);
+procedure Set_Font_Callback(activeFont: PByte; font_color: TColor; font_orientation: Word); stdcall;
 var
   Res: string;
   FontAddress: string;
@@ -661,7 +661,7 @@ begin
 end;
 
 
-procedure Write_Text_Callback(AText: string; x, y: Word);
+procedure Write_Text_Callback(AText: string; x, y: Word); stdcall;
 var
   Res: string;
 begin
@@ -674,7 +674,7 @@ begin
 end;
 
 
-procedure Line_Callback(x1, y1, x2, y2: Integer);
+procedure Line_Callback(x1, y1, x2, y2: Integer); stdcall;
 var
   Res: string;
 begin
@@ -688,7 +688,7 @@ begin
 end;
 
 
-procedure H_Line_Callback(x_start, x_end, y_pos: Integer);
+procedure H_Line_Callback(x_start, x_end, y_pos: Integer); stdcall;
 var
   Res: string;
 begin
@@ -701,7 +701,7 @@ begin
 end;
 
 
-procedure V_Line_Callback(y_start, y_end, x_pos: Integer);
+procedure V_Line_Callback(y_start, y_end, x_pos: Integer); stdcall;
 var
   Res: string;
 begin
@@ -714,7 +714,7 @@ begin
 end;
 
 
-procedure Dot_Callback(x, y: Integer; Color: TColor);
+procedure Dot_Callback(x, y: Integer; Color: TColor); stdcall;
 var
   Res: string;
 begin
@@ -727,7 +727,7 @@ begin
 end;
 
 
-procedure Fill_Screen_Callback(color: TColor);
+procedure Fill_Screen_Callback(color: TColor); stdcall;
 var
   Res: string;
 begin
@@ -738,7 +738,7 @@ begin
 end;
 
 
-procedure Rectangle_Callback(x_upper_left, y_upper_left, x_bottom_right, y_bottom_right: Integer);
+procedure Rectangle_Callback(x_upper_left, y_upper_left, x_bottom_right, y_bottom_right: Integer); stdcall;
 var
   Res: string;
 begin
@@ -752,7 +752,7 @@ begin
 end;
 
 
-procedure Circle_Callback(x_center, y_center, radius: Integer);
+procedure Circle_Callback(x_center, y_center, radius: Integer); stdcall;
 var
   Res: string;
 begin
@@ -765,7 +765,7 @@ begin
 end;
 
 
-procedure GetTextWidthAndHeight_Callback(AText: string; var Width, Height: Word);
+procedure GetTextWidthAndHeight_Callback(AText: string; var Width, Height: Word); stdcall;
 var
   TempTextSize: TSize;
 //  AStringList: TStringList;
@@ -812,7 +812,7 @@ begin
 end;
 
 
-procedure DrawBitmap_Callback(APointerToBmpStreamMem: Pointer; AContentSize: Int64; x, y: Integer);
+procedure DrawBitmap_Callback(APointerToBmpStreamMem: Pointer; AContentSize: Int64; x, y: Integer); stdcall;
 var
   Res: string;
   MemStream: TMemoryStream;

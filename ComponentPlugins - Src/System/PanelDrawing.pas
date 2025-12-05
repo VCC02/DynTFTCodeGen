@@ -513,6 +513,14 @@ begin
       ColumnWidths.Text := GetPropertyValueInPropertiesOrEventsByName(PropertiesOrEvents, 'ColumnWidths');
       LocalVisibleIcons.Text := GetPropertyValueInPropertiesOrEventsByName(PropertiesOrEvents, 'VisibleIcons');
 
+      if ColumnWidths.Count < LocalHeaderItems.Count then
+        for i := ColumnWidths.Count to LocalHeaderItems.Count - 1 do
+          ColumnWidths.Add('40');
+
+      if LocalVisibleIcons.Count < LocalHeaderItems.Count then
+        for i := LocalVisibleIcons.Count to LocalHeaderItems.Count - 1 do
+          LocalVisibleIcons.Add('1');
+
       for i := 0 to LocalHeaderItems.Count - 1 do
       begin
         TempListBox := PDynTFTListBox(ADynTFTVirtualTable^.Columns^.Content[i]);
@@ -1336,7 +1344,7 @@ begin
           TempListBox := PDynTFTListBox(ADynTFTVirtualTable^.Columns.Content^[i]);
 
           UpdateComponentPropertyByName(PropertiesOrEvents, 'Items^.Count', IntToStr(TempListBox^.Items^.Count));
-          UpdateComponentPropertyByName(PropertiesOrEvents, 'Items^.TotalVisibleCount', IntToStr(TempListBox^.Items^.TotalVisibleCount));
+          UpdateComponentPropertyByName(PropertiesOrEvents, 'Items^.TotalVisibleCount', IntToStr(TempListBox^.Items^.TotalVisibleCount));  
         end;
 
         for i := 0 to ADynTFTVirtualTable^.Columns.Len - 1 do
@@ -1351,7 +1359,7 @@ begin
           ADynTFTVirtualTable^.OnDrawIcon^ := VTItemsOnDrawIcon;
         end;
 
-        DynTFTDrawVirtualTable(ADynTFTVirtualTable, True);
+        DynTFTDrawVirtualTable(ADynTFTVirtualTable, True);                                             
       finally
         Items_Content.Free;
         Items_Visibility.Free;
@@ -1368,7 +1376,7 @@ begin
           DynTFT_Set_Font(PDynTFTListBox(ADynTFTVirtualTable^.Columns.Content^[0])^.Items^.ActiveFont, CL_GREEN, FO_HORIZONTAL);
           DynTFT_Write_Text('Ex on drawing VirtualTable', 2, 3);
           DynTFT_Write_Text(EE.Message, 2, 23);
-          DynTFT_Write_Text('If a property was deleted in schema file, then this plugin has to be updated and recompiled.', 2, 43);
+          DynTFT_Write_Text('If a property was deleted in schema file, then this plugin has to be updated and recompiled.', 2, 43);   
         except
           on E: Exception do
             raise Exception.Create('VirtualTable is still in work (' + E.Message + ')  EE="' + EE.Message + '"');
