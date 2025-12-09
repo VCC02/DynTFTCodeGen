@@ -861,10 +861,10 @@ begin
         for i := 0 to ADynTFTRadioGroup^.ButtonCount - 1 do
         begin
           Dispose(ADynTFTRadioGroup^.Buttons[i]);
-          New(ADynTFTRadioGroup^.Buttons[i]^.OnOwnerInternalMouseDown);
-          New(ADynTFTRadioGroup^.Buttons[i]^.OnOwnerInternalMouseMove);
-          New(ADynTFTRadioGroup^.Buttons[i]^.OnOwnerInternalMouseUp);
-          New(ADynTFTRadioGroup^.Buttons[i]^.OnOwnerInternalBeforeDestroy);
+          Dispose(ADynTFTRadioGroup^.Buttons[i]^.OnOwnerInternalMouseDown);
+          Dispose(ADynTFTRadioGroup^.Buttons[i]^.OnOwnerInternalMouseMove);
+          Dispose(ADynTFTRadioGroup^.Buttons[i]^.OnOwnerInternalMouseUp);
+          Dispose(ADynTFTRadioGroup^.Buttons[i]^.OnOwnerInternalBeforeDestroy);
         end;
       end;
     finally
@@ -994,10 +994,10 @@ begin
         for i := 0 to ADynTFTPageControl^.PageCount - 1 do
         begin
           Dispose(ADynTFTPageControl^.TabButtons[i]);
-          New(ADynTFTPageControl^.TabButtons[i]^.OnOwnerInternalMouseDown);
-          New(ADynTFTPageControl^.TabButtons[i]^.OnOwnerInternalMouseMove);
-          New(ADynTFTPageControl^.TabButtons[i]^.OnOwnerInternalMouseUp);
-          New(ADynTFTPageControl^.TabButtons[i]^.OnOwnerInternalBeforeDestroy);
+          Dispose(ADynTFTPageControl^.TabButtons[i]^.OnOwnerInternalMouseDown);
+          Dispose(ADynTFTPageControl^.TabButtons[i]^.OnOwnerInternalMouseMove);
+          Dispose(ADynTFTPageControl^.TabButtons[i]^.OnOwnerInternalMouseUp);
+          Dispose(ADynTFTPageControl^.TabButtons[i]^.OnOwnerInternalBeforeDestroy);
         end;
       end;
     finally
